@@ -12,7 +12,7 @@ fetch('http://localhost:3000/api/products')
     res.json().then(data => 
         console.log(data[0].name));
     }
-  } else {
+   else {
       console.log("ERREUR"),
       document.getElementById('items').innerHTML = "Une erreur s'est produite, veuillez nous excuser"
       
