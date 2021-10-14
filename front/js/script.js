@@ -10,7 +10,10 @@ fetch('http://localhost:3000/api/products')
 
   if(res.ok){
     res.json().then(data => 
-        console.log(data[0].name));
+        let canape = [data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]];
+        for(let ligne = 0; ligne < canape.length; ligne++){
+          console.log(canape[ligne]);
+        }
     }
    else {
       console.log("ERREUR"),
