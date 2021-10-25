@@ -37,3 +37,15 @@ const getEmailValue = function() {
 };
  getEmailValue();
 
+// Ecouter soumission du formulaire
+// Appeler la function qui récupère la valeur de l'email
+
+email.addEventListener('change', function(){
+  validEmail(this);
+});
+
+console.log(email);
+
+
+
+
