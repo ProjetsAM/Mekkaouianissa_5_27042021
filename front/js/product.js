@@ -13,5 +13,5 @@ function getIdFromUrl() {
     console.log(id);
 
 };
-getIdFromUrl ();
+getIdFromUrl();
 

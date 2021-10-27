@@ -1,6 +1,19 @@
 onload = function () {
   console.log("je suis sur la page cart");
 
+  // on utilise getElementById pour cibler un id, (#email)
+  // on utilise querySelector pour cibler 1 element qui a une class (.cart__order__form)
+  // on utilise querySelectorAll pour cibler tous les elements qui ont la meme class  (on verra + tard)
+  // let  email = document.getElementById("email");  // car le HTML  montre un #email
+  
+  const form = document.querySelector(".cart__order__form");  // car le HTML ne montre pas d 'id, mais une class .cart__order__form
+  // exercice : récupérer l'element sans la value, on veut la balise , pour les champs suivants (indice : ligne 7)
+  let inputFirstName = document.getElementById("firstName");
+  let inputLastName = document.getElementById("lastName");
+  let inputAdress = document.getElementById("adress");
+  let inputCity = document.getElementById("city");
+  let inputEmail = document.getElementById("email");  // pas besoin de la value
+
   // etape 1 on crée les variables let et les variables const dont on a besoin pour le fichier
   let totalItems = document.getElementById("totalQuantity");
   let totalPrice = document.getElementById("totalPrice");
@@ -28,24 +41,46 @@ onload = function () {
   // étape 3 : on appelle/utilise les fonctions pour qu'elles soient executées (au dessus, on les a juste définies pour leur dire quoi faire au moment où on les appellera)
   displayTotalQuantity();
   displayTotalPrice();
-};
   // appeler la function getEmailValue ici
+  
+  const getEmailValue = function() {
+    
+    console.log(email.value);
+  };
+  getEmailValue();
+  
+  // Ecouter soumission du formulaire
+  // Appeler la function qui récupère la valeur de l'email
 
-const getEmailValue = function() {
-  const email = document.getElementById("email").value;
-  console.log(email);
+
+  form.addEventListener ('submit', function(event) {
+    event.preventDefault();  // pour stopper le comportement par défaut qui , ici, rafraichit la page
+    console.log('click');
+})
+
+
+// exercice : trouver une RegEx qui vérifie qu un email est valide (grâce à Google, en JS)
+const RegExpEmail =  (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/); 
+
+let testEmail = RegExpEmail.test(inputEmail.value);// en remplaçant null
+
+// exercice = appliquer dans le console.log le test d'appliquer la RegExEmail à la valeur de l'email, ça retournera true ou false
+console.log(testEmail);   // en remplaçant undefined
+
+
+
+
+// Seulement ensuite :
+// exercice : quel autre champs doit etre validé ?
+const RegExpFirstName = (/^[a-z ,.'-]+$/i);
+// quelle validation veut on sur ce 2e champs ?
+let testFirstName = RegExpFirstName.test(inputFirstName.value);
+// quelle regex valide cette verification du 2e champs ?
+
+// faire un console log de la verification du 2e champs
+console.log(testFirstName);  // en remplaçant undefined
+
 };
- getEmailValue();
-
-// Ecouter soumission du formulaire
-// Appeler la function qui récupère la valeur de l'email
-
-email.addEventListener('change', function(){
-  validEmail(this);
-});
-
-console.log(email);
-
 
 
 

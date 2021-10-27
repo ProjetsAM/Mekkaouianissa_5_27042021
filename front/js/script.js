@@ -47,8 +47,9 @@ const addOneKanap = function () {
     </article>
     </a>`;
 };
-addOneKanap();
-// etape 3 : on appelle ces fonctions, pour qu elles s exécutent
-// indice : ça ne se passe pas forcément ligne 46 :)
+// addOneKanap(); // pas ici  , voir la ligne 54
 
-// indice: on aura besoin qu à chaque tour de boucle , on ait un addOneKanap qui s execute
+// exercice: on aura besoin qu à chaque tour de boucle , on ait un addOneKanap qui s execute
+// indice : ça ne se passe pas forcément ligne 50 :)
+
+// si ça n affiche d un seul canap à l arrivée (== quand la boule est finie), c est pas grave (c est normal vue le code à ce stade)
