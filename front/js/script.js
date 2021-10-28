@@ -47,6 +47,12 @@ const addOneKanap = function () {
     </article>
     </a>`;
 };
+
+for (let i = 0; i < addOneKanap.length; i++){
+  console.log(i);
+  console.log(addOneKanap);
+}
+
 // addOneKanap(); // pas ici  , voir la ligne 54
 
 // exercice: on aura besoin qu à chaque tour de boucle , on ait un addOneKanap qui s execute
