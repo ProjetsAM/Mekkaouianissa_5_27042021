@@ -1,17 +1,22 @@
 onload = function() {
     console.log("je suis sur la page product");
+    //const id;
+
+    function getIdFromUrl() {
+        const str = document.location.href;
+        const url = new URL(str);
+        id = url.searchParams.get("id");
+    };
+    getIdFromUrl();
 };
-// Récupérer l'url de la page courante et l'afficher dans un console.log
-//Est-ce que cette url a un paramètre qui indique quel identifiant a le produit? si oui: quelle est la valeur de cet identifiant ?
-//Essayer de récupérer en JS cet identifiant en se documentant sur URLSearchParams
-function getIdFromUrl() {
 
-    const str = document.location.href;
-    const url = new URL(str);
-    const id = url.searchParams.get("id");
-    console.log(window.location.href);
-    console.log(id);
+const urlProduct = 'http://localhost:3000/api/products/107fb5b75607497b96722bda5b504926';
 
-};
-getIdFromUrl();
-
+fetch(urlProduct)
+  .then((res) => res.json()) 
+  .then((data) => {
+      console.log(data);
+  
+    }
+  )
+ 

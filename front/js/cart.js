@@ -82,5 +82,16 @@ console.log(testFirstName);  // en remplaçant undefined
 
 };
 
+/*créer une fonction qui affiche dans la page cart.html un message indiquant que le panier est vide.
+Je te laisse choisir le nom (en anglais) de la fonction.
+La fonction, en gros, va faire va faire un innerHTML dans la page cart pour afficher un truc du genre <p>Votre panier actuel est vide.</p>
+Une fois cette fonction créée, il faut l appeler pour qu elle s execute (comme tu l avais fait pour getEmailValue)*/
 
 
+
+const emptyBasket = () => {
+ if (itemsTarget){ 
+  itemsTarget.innerHTML = "<p>Votre panier actuel est vide.</p>";
+  
+   }
+};
