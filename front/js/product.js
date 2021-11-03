@@ -6,6 +6,7 @@
         const str = document.location.href;
         const url = new URL(str);
         id = url.searchParams.get("id");
+        console.log('id vaut:',id);
     };
     getIdFromUrl();
    
@@ -15,7 +16,7 @@
     .then((res) => res.json())
     .then((data) => {
         console.log(data);
-        console.log(price);
+        console.log(data.price);
     }
     )
 };

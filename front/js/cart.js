@@ -80,6 +80,12 @@ let testFirstName = RegExpFirstName.test(inputFirstName.value);
 // faire un console log de la verification du 2e champs
 console.log(testFirstName);  // en remplaçant undefined
 
+const emptyBasket = () => {
+  if (itemsTarget){ 
+   itemsTarget.innerHTML = "<p>Votre panier actuel est vide.</p>";
+   
+    }
+ };
 };
 
 /*créer une fonction qui affiche dans la page cart.html un message indiquant que le panier est vide.
@@ -89,9 +95,4 @@ Une fois cette fonction créée, il faut l appeler pour qu elle s execute (comme
 
 
 
-const emptyBasket = () => {
- if (itemsTarget){ 
-  itemsTarget.innerHTML = "<p>Votre panier actuel est vide.</p>";
-  
-   }
-};
+
