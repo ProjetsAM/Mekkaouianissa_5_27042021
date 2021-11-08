@@ -2,6 +2,9 @@
     console.log("je suis sur la page product");
     let id;
 
+    /* Fonction qui récupère les paramètres de l'url, avec l'identifiant qui indique le produit
+    concerné par la page*/
+
     function getIdFromUrl() {
         const str = document.location.href;
         const url = new URL(str);
@@ -22,6 +25,7 @@
         console.log(data.description);
         console.log(data.name);
 
+
         let name = data.name;
         let description = data.description;
         let imageUrl = data.imageUrl;
@@ -34,13 +38,27 @@
         let kanapName = document.getElementById("title");
         let kanapDescription = document.getElementById("description");
         let kanapPrice = document.getElementById("price");
-        let kanapImageUrl = document.querySelector(".item__img").innerHTML = `<img src=${imageUrl} alt="photo du canape">`;
+        let kanapImageUrl = document.querySelector(".item__img")
 
         kanapName.innerHTML = name;
         kanapDescription.innerHTML = description;
         kanapPrice.innerHTML = price;
+        kanapImageUrl.innerHTML = `<img src=${imageUrl} alt=${altTxt}>`;
+
+        // Boucle sur les couleurs des  canapés
+
+        for (let i = 0; i < colors.length; i++) {
+            console.log(colors[i]);
+        }; 
         
-        
+        // Détecter le clic sur le bouton 
+
+        const btn = document.getElementById("addToCart");
+
+        btn.addEventListener('click', () => {
+
+            console.log('vous avez cliqué');
+        });
 
        
         
