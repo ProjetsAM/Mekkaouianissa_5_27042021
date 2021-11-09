@@ -17,11 +17,12 @@ onload = function () {
         console.log(data[i]._id);
         console.log(data[i].imageUrl);
         // addOneKanap(); 
-        container.innerHTML = `<a href="./product.html?id=42">
+        // container.appendChild(enfant);
+      container.innerHTML += `<a href="./product.html?id=${data[i]._id}">
         <article>
-        <img src=".../product01.jpg" alt="Lorem ipsum dolor sit amet, Kanap name1">
-        <h3 class="productName">Kanap Blabla name1</h3>
-        <p class="productDescription">Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada risus sapien gravida nulla nisl arcu.</p>
+        <img src="${data[i].imageUrl}" alt="${data[i].altTxt}">
+        <h3 class="productName">${data[i].name}</h3>
+        <p class="productDescription">${data[i].description}</p>
         </article>
         </a>`;
       }
@@ -31,12 +32,12 @@ onload = function () {
         WarnApiNotConnected();
     }); 
     
-    const addOneKanap = function () {
-        container.innerHTML = `<a href="./product.html?id=42">
+    const addOneKanap = function (infos) {
+        container.innerHTML = `<a href="./product.html?id=${infos._id}">
         <article>
-        <img src=".../product01.jpg" alt="Lorem ipsum dolor sit amet, Kanap name1">
-        <h3 class="productName">Kanap Blabla name1</h3>
-        <p class="productDescription">Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada risus sapien gravida nulla nisl arcu.</p>
+        <img src="${infos.imageUrl}" alt="${infos.altTxt}">
+        <h3 class="productName">${infos.name}</h3>
+        <p class="productDescription">${infos.description}</p>
         </article>
         </a>`;
     };
@@ -46,6 +47,9 @@ onload = function () {
             itemsTarget.innerHTML = `<p>Une erreur s'est produite, veuillez nous excuser.</p>`;
         }
     }
+    
+
+
     
 
   

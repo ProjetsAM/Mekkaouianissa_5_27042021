@@ -1,6 +1,7 @@
   onload = function() {
     console.log("je suis sur la page product");
     let id;
+    const input = document.getElementById("colors");
 
     /* Fonction qui récupère les paramètres de l'url, avec l'identifiant qui indique le produit
     concerné par la page*/
@@ -15,7 +16,7 @@
    
     // Affiche le produit sur la page
 
-    const urlProduct = 'http://localhost:3000/api/products/107fb5b75607497b96722bda5b504926';
+    const urlProduct = `http://localhost:3000/api/products/${id}`;
    
     fetch(urlProduct)
     .then((res) => res.json())
@@ -49,6 +50,10 @@
 
         for (let i = 0; i < colors.length; i++) {
             console.log(colors[i]);
+           // container.innerHTML += enfant;
+           /*enfant désigne le template literal composé par <option value...> et la couleur qui fonctionne
+           ligne 51*/ 
+
         }; 
         
         // Détecter le clic sur le bouton 
@@ -60,8 +65,17 @@
             console.log('vous avez cliqué');
         });
 
-       
+        // Commande qui ajoute au localstorage une combinaison de clé/valeur 
+
+        localStorage.setItem('canapé', '1849');
         
+        // Couleurs des canapés dans la liste déroulante
+
+       
+
+        
+
+
 
 
     }

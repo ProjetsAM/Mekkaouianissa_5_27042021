@@ -1,5 +1,6 @@
 onload = function () {
   console.log("je suis sur la page cart");
+  const itemsTarget = document.getElementById ('order');
 
   // on utilise getElementById pour cibler un id, (#email)
   // on utilise querySelector pour cibler 1 element qui a une class (.cart__order__form)
