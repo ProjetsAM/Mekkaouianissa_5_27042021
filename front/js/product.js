@@ -50,10 +50,8 @@
 
         for (let i = 0; i < colors.length; i++) {
             console.log(colors[i]);
-            //container.innerHTML += `<option value=${data.colors}>`;
-           // container.innerHTML += enfant;
-           /*enfant désigne le template literal composé par <option value...> et la couleur qui fonctionne
-           ligne 51*/ 
+            input.innerHTML += `<option value=${colors}>`;
+           
 
         }; 
         
@@ -70,7 +68,7 @@
 
         localStorage.setItem('totalCommande', '1849');
         
-        // Couleurs des canapés dans la liste déroulante
+        
 
        
 
