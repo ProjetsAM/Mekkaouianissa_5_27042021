@@ -34,7 +34,7 @@
         let colors = data.colors;
         let price = data.price;
         let id = data._id;
-
+ 
        
         let kanapName = document.getElementById("title");
         let kanapDescription = document.getElementById("description");
@@ -50,13 +50,14 @@
 
         for (let i = 0; i < colors.length; i++) {
             console.log(colors[i]);
+            //container.innerHTML += `<option value=${data.colors}>`;
            // container.innerHTML += enfant;
            /*enfant désigne le template literal composé par <option value...> et la couleur qui fonctionne
            ligne 51*/ 
 
         }; 
         
-        // Détecter le clic sur le bouton 
+        // Ecouter le clic sur le bouton ajouter au panier
 
         const btn = document.getElementById("addToCart");
 
@@ -67,7 +68,7 @@
 
         // Commande qui ajoute au localstorage une combinaison de clé/valeur 
 
-        localStorage.setItem('canapé', '1849');
+        localStorage.setItem('totalCommande', '1849');
         
         // Couleurs des canapés dans la liste déroulante
 
