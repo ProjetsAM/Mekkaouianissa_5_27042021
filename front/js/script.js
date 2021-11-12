@@ -17,7 +17,6 @@ onload = function () {
         console.log(data[i]._id);
         console.log(data[i].imageUrl);
         // addOneKanap(); 
-        // container.appendChild(enfant);
       container.innerHTML += `<a href="./product.html?id=${data[i]._id}">
         <article>
         <img src="${data[i].imageUrl}" alt="${data[i].altTxt}">

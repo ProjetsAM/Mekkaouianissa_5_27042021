@@ -1,4 +1,5 @@
-  onload = function() {
+
+onload = function() {
     console.log("je suis sur la page product");
     let id;
     const input = document.getElementById("colors");
@@ -39,7 +40,7 @@
         let kanapName = document.getElementById("title");
         let kanapDescription = document.getElementById("description");
         let kanapPrice = document.getElementById("price");
-        let kanapImageUrl = document.querySelector(".item__img")
+        let kanapImageUrl = document.querySelector(".item__img");
 
         kanapName.innerHTML = name;
         kanapDescription.innerHTML = description;
@@ -50,12 +51,12 @@
 
         for (let i = 0; i < colors.length; i++) {
             console.log(colors[i]);
-            input.innerHTML += `<option value=${colors}>`;
+            input.innerHTML += `<option value> ${colors[i]}</option>`;
            
 
         }; 
         
-        // Ecouter le clic sur le bouton ajouter au panier
+        // Ecouter le clic sur le bouton ajouter au panier (eventListener)
 
         const btn = document.getElementById("addToCart");
 
@@ -64,13 +65,41 @@
             console.log('vous avez cliqué');
         });
 
-        // Commande qui ajoute au localstorage une combinaison de clé/valeur 
-
-        localStorage.setItem('totalCommande', '1849');
-        
-        
+        const choiceProduct = {
+            id: id,
+            image: imageUrl,
+            alt: altTxt,
+            name: name,
+            price: price,
+            color: colors,
+            quantity: 1,
+        };
+        console.log(choiceProduct);        
 
        
+        //------------------------------------------Stocker la récupération des valeurs du formulaire dans le local storage-----
+        
+   
+        //Déclaration de la variable "produitInLocalStorage" dans laquelle on met les keys et les values qui sont dans le local storage
+        let productInLocalStorage = JSON.parse(localStorage.getItem('product'));
+        //--JSON.parse c'est pour convertir les données au format JSON qui sont dans le local storage en objet JavaScript        
+        console.log(productInLocalStorage);  // Retourne la valeur null
+
+        // s'il y a déjà des produits d'enregistré dans le local storage
+        if(productInLocalStorage){
+            productInLocalStorage.push(choiceProduct);
+
+
+        }
+        // s'il n'y a pas de produits d'enregistré dans le local storage
+        else{
+            productInLocalStorage = [];
+            productInLocalStorage.push(choiceProduct);
+            localStorage.setItem("product", JSON.stringify(productInLocalStorage));
+
+            console.log(productInLocalStorage);
+
+        }       
 
         
 
@@ -80,4 +109,11 @@
     }
     );
 };
- 
+
+
+
+
+  // Commande qui ajoute au localstorage une combinaison de clé/valeur 
+
+  localStorage.setItem('totalCommande', '1849');
+    
