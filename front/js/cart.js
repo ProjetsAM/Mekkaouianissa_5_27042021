@@ -1,53 +1,46 @@
 onload = function () {
   console.log("je suis sur la page cart");
   const itemsTarget = document.getElementById ('order');
-
-  // on utilise getElementById pour cibler un id, (#email)
-  // on utilise querySelector pour cibler 1 element qui a une class (.cart__order__form)
-  // on utilise querySelectorAll pour cibler tous les elements qui ont la meme class  (on verra + tard)
-  // let  email = document.getElementById("email");  // car le HTML  montre un #email
-  
-  const form = document.querySelector(".cart__order__form");  // car le HTML ne montre pas d 'id, mais une class .cart__order__form
-  // exercice : récupérer l'element sans la value, on veut la balise , pour les champs suivants (indice : ligne 7)
+  const form = document.querySelector(".cart__order__form");
+    
+  // Récupérer l'element dans le HTML
   let inputFirstName = document.getElementById("firstName");
   let inputLastName = document.getElementById("lastName");
   let inputAdress = document.getElementById("adress");
   let inputCity = document.getElementById("city");
-  let inputEmail = document.getElementById("email");  // pas besoin de la value
+  let inputEmail = document.getElementById("email");  
 
-  // etape 1 on crée les variables let et les variables const dont on a besoin pour le fichier
+  // Créer les variables pour le fichier
   let totalItems = document.getElementById("totalQuantity");
   let totalPrice = document.getElementById("totalPrice");
 
-  // étape 2 : on crée des functions avec un nom clair (en anglais) pour savoir, en relisant le code, ce qui est fait ici en JS
+  // étape 2 : Function flechee 
   const displayTotalQuantity = () => {
-    // il s agit ici d une fonction flechee , j aurais pu ecrire : const displayTotalQuantity = function() {...}
+    
     if (totalItems) {
-      // le if sert à verifier que le #totalQuantity exsitera bien dans la page concernée et éviter, si ce n est plus le cas dans le futur, de péter toute la page en indiquant une erreur
-      totalItems.innerText = "5"; // histoire de faire une variante, si tu n'as que du texte à insérer (sans balises) alors innerText suffira
+      
+      totalItems.innerText = "5";
     }
   };
 
   const displayTotalPrice = () => {
     if (totalPrice) {
-      // on a un if pour etre sûr que le #totalPrice existera bien dans le DOM avant d'aller + loin en JS
-      totalPrice.innerHTML = "<bold>420</bold>"; // ajouter le <span> apportait pas grand chose, j ai pimenté le innerHTML avec <bold>
+      
+      totalPrice.innerHTML = "<bold>420</bold>"; 
     }
   };
 
-  // exercice:
-  // créer une function getEmailValue qui récupère la valeur (value) de l email qui apparait en page cart.html et qui l affiche dans un console.log
-  // astuce google mettre : js ou plain js ou vanilla JS : puis ta recherche google
-
-  // étape 3 : on appelle/utilise les fonctions pour qu'elles soient executées (au dessus, on les a juste définies pour leur dire quoi faire au moment où on les appellera)
+  // J'appelle les functions que j'ai crée au dessus
   displayTotalQuantity();
   displayTotalPrice();
-  // appeler la function getEmailValue ici
   
+  
+  // Function qui récupère la valeur de l'email qui apparaît en page cart.html
   const getEmailValue = function() {
     
     console.log(email.value);
   };
+  // J'appelle la function getEmailValue
   getEmailValue();
   
   // Ecouter soumission du formulaire
@@ -55,45 +48,44 @@ onload = function () {
 
 
   form.addEventListener ('submit', function(event) {
-    event.preventDefault();  // pour stopper le comportement par défaut qui , ici, rafraichit la page
+     // Stoppe le comportement par défaut qui , ici, rafraichit la page
+    event.preventDefault(); 
     console.log('click');
 })
 
 
-// exercice : trouver une RegEx qui vérifie qu un email est valide (grâce à Google, en JS)
+// RegEx qui vérifie que l' email  et le prenom sont valide
+
 const RegExpEmail =  (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/); 
+let testEmail = RegExpEmail.test(inputEmail.value);
 
-let testEmail = RegExpEmail.test(inputEmail.value);// en remplaçant null
-
-// exercice = appliquer dans le console.log le test d'appliquer la RegExEmail à la valeur de l'email, ça retournera true ou false
-console.log(testEmail);   // en remplaçant undefined
-
+// Test pour appliquer la RegExEmail à la valeur de l'email, (true ou false)
+console.log(testEmail);  
 
 
-
-// Seulement ensuite :
-// exercice : quel autre champs doit etre validé ?
 const RegExpFirstName = (/^[a-z ,.'-]+$/i);
-// quelle validation veut on sur ce 2e champs ?
 let testFirstName = RegExpFirstName.test(inputFirstName.value);
-// quelle regex valide cette verification du 2e champs ?
+//  Regex qui valide la verification
 
-// faire un console log de la verification du 2e champs
-console.log(testFirstName);  // en remplaçant undefined
+//Console log de la verification du 2e champs
+console.log(testFirstName);  
 
+//Function qui affiche un message dans cart.html qui indique que le panier est vide
 const emptyBasket = () => {
   if (itemsTarget){ 
    itemsTarget.innerHTML = "<p>Votre panier actuel est vide.</p>";
    
     }
  };
+ emptyBasket();
+ 
+ 
+ // Produits stockés dans le LocalStorage 
+ let totalCommande = [];
+ 
+ let productInLocalStorage =  JSON.parse(localStorage.getItem('totalCommande'));
+ //JSON.parse c'est pour convertir les données au format JSON qui sont dans le local storage en objet JavaScript
+ console.log("les éléments qu'il y a dans le localStorage", productInLocalStorage);
+ // le console.log affiche les éléments qu'il y dans le localstorage
 };
-
-/*créer une fonction qui affiche dans la page cart.html un message indiquant que le panier est vide.
-Je te laisse choisir le nom (en anglais) de la fonction.
-La fonction, en gros, va faire va faire un innerHTML dans la page cart pour afficher un truc du genre <p>Votre panier actuel est vide.</p>
-Une fois cette fonction créée, il faut l appeler pour qu elle s execute (comme tu l avais fait pour getEmailValue)*/
-
-
-
 

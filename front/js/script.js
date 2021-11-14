@@ -1,14 +1,16 @@
+
 onload = function () {
   const API = "http://localhost:3000/api/products";
   const itemsTarget = document.getElementById("items");
   const container = document.getElementById("items");
-
-
+  
+  // Fetch récupère les données depuis l'url de l'API
+  
   fetch(API)
     .then((res) => res.json()) 
     .then((data) => {
       console.log(data);
-    
+    //Boucle qui affiche les canapés qu'il y a dans l'API jusqu'à épuisement
         for (let i = 0; i < data.length; i++) {
         console.log(i);
         console.log(data[i].name); 
@@ -26,6 +28,7 @@ onload = function () {
         </a>`;
       }
     })
+    // Message au cas où le serveur ne répond pas
     .catch((error) => {
         console.log("Api non connectée");
         WarnApiNotConnected();
