@@ -83,7 +83,7 @@ const emptyBasket = () => {
  // Produits stockés dans le LocalStorage 
  let totalCommande = [];
  
- let productInLocalStorage =  JSON.parse(localStorage.getItem('totalCommande'));
+ let productInLocalStorage =  JSON.parse(localStorage.getItem('product'));
  //JSON.parse c'est pour convertir les données au format JSON qui sont dans le local storage en objet JavaScript
  console.log("les éléments qu'il y a dans le localStorage", productInLocalStorage);
  // le console.log affiche les éléments qu'il y dans le localstorage
