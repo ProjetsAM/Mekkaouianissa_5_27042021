@@ -2,7 +2,7 @@
 onload = function() {
     console.log("je suis sur la page product");
     let id;
-    const input = document.getElementById("colors");
+    const inputColor = document.getElementById("colors");
     const quantity = document.getElementById("quantity");
     
     /* Fonction qui récupère les paramètres de l'url, avec l'identifiant qui indique le produit
@@ -52,7 +52,7 @@ onload = function() {
         
         for (let i = 0; i < colors.length; i++) {
             console.log(colors[i]);
-            input.innerHTML += `<option value> ${colors[i]}</option value>`;
+            inputColor.innerHTML += `<option value = ${colors[i]}>${colors[i]}</option>`;
             
             
         }; 
@@ -63,25 +63,37 @@ onload = function() {
         
         btn.addEventListener('click', () => {
             
+            /*/Récupération des options de l'article à ajouter au panier
+            const selectedProduct = {
+                _id: id,
+                image: imageUrl,
+                _name: name, 
+                _price: price,
+                color: inputColor.value,
+                quantity: quantity.value,
+            };
             console.log('vous avez cliqué');
-              
+            console.log(selectedProduct);  */ 
+            
+            
+            /*if (selectedProduct) {    
+            console.log(selectedProduct);      
+            }
+            else {
+            localStorage.setItem(selectedProduct)   
+            productInLocalStorage.push(selectedProduct) 
+
+            console.log(commande); */
+                
+
+
         });
 
         
         
-        //Récupération des options de l'article à ajouter au panier
-        const selectedProduct = {
-            _id: id,
-            image: imageUrl,
-            _name: name, 
-            _price: price,
-            colors: input.value,
-            quantity: quantity.value,
-        };
-        console.log(selectedProduct);        
         
        
-        //------------------------------------------Stocker la récupération des valeurs du formulaire dans le local storage-----
+        /*------------------------------------------Stocker la récupération des valeurs du formulaire dans le local storage-----
         
         
         //Déclaration de la variable "produitInLocalStorage" dans laquelle on met les keys et les values qui sont dans le local storage
@@ -107,14 +119,12 @@ onload = function() {
         
         // Endroit où sont stockées les infos pour pouvoir les y retrouver ultérieurement
         
-        localStorage.setItem('product', '1849');
+        localStorage.setItem('product', '1849');*/
         
             
     })
-    
-    // Message d'erreur quand le serveur ne répond pas
-    
-    .catch(_error => {
+    .catch((error) => {
+        // Message d'erreur quand le serveur ne répond pas
         alert("le serveur ne répond pas");
     }); 
     

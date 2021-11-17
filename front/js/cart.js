@@ -89,3 +89,9 @@ const emptyBasket = () => {
  // le console.log affiche les éléments qu'il y dans le localstorage
 };
 
+
+// Affichage des produits du panier
+const positionElement = document.getElementById("cart__items");
+
+console.log(positionElement);
+
