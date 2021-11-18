@@ -75,28 +75,32 @@ onload = function() {
             console.log('vous avez cliqué');
             console.log(selectedProduct);  */ 
             
+            let productInLocalStorage = [];
+
+            if (productInLocalStorage) { 
             
-            /*if (selectedProduct) {    
-            console.log(selectedProduct);      
+            localStorage.setItem("product",JSON.stringify(productInLocalStorage)),   
+            console.log(productInLocalStorage),
+
             }
-            else {
-            localStorage.setItem(selectedProduct)   
-            productInLocalStorage.push(selectedProduct) 
 
-            console.log(commande); */
-                
-
-
+            else  { 
+            (productInLocalStorage)
+            productInLocalStorage.push(product);
+            console.log(product);
+            }
+               
+              
         });
 
         
         
         
        
-        /*------------------------------------------Stocker la récupération des valeurs du formulaire dans le local storage-----
+        /*/------------------------------------------Stocker la récupération des valeurs du formulaire dans le local storage-----
         
         
-        //Déclaration de la variable "produitInLocalStorage" dans laquelle on met les keys et les values qui sont dans le local storage
+        //Déclaration de la variable "productInLocalStorage" dans laquelle on met les keys et les values qui sont dans le local storage
         let productInLocalStorage = JSON.parse(localStorage.getItem('product'));
         //--JSON.parse c'est pour convertir les données au format JSON qui sont dans le local storage en objet JavaScript        
          console.log(productInLocalStorage);  // Retourne la valeur null
