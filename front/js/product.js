@@ -63,7 +63,7 @@ onload = function() {
         
         btn.addEventListener('click', () => {
             
-            /*/Récupération des options de l'article à ajouter au panier
+            //Récupération des options de l'article à ajouter au panier
             const selectedProduct = {
                 _id: id,
                 image: imageUrl,
@@ -73,23 +73,40 @@ onload = function() {
                 quantity: quantity.value,
             };
             console.log('vous avez cliqué');
-            console.log(selectedProduct);  */ 
+            console.log(selectedProduct);  
             
-            let productInLocalStorage = [];
+            
 
-            if (productInLocalStorage) { 
+            /*if (productInLocalStorage) { 
             
-            localStorage.setItem("product",JSON.stringify(productInLocalStorage)),   
-            console.log(productInLocalStorage),
+            localStorage.setItem("product",JSON.stringify(productInLocalStorage));  
+            console.log(productInLocalStorage);
 
             }
 
             else  { 
-            (productInLocalStorage)
+            
             productInLocalStorage.push(product);
             console.log(product);
+            } */
+
+            let commandeExistante = localStorage.getItem('commande');
+
+            if (commandeExistante) {
+                console.log(commandeExistante);
             }
-               
+            else {
+                selectedProduct = [];
+                localStorage.setItem("commande",JSON.stringify(selectedProduct));
+                console.log(selectedProduct);
+
+            };
+
+            //Au clic vérifier s'il existe une commande :
+            // On déclare une variable  et le = lui affecte le résultat (getItem)
+            // "If" il existe une commande, alors on console.log "la commande"
+            /* "Else" alors il n'existe pas de commande on en crée une "commande", 
+            on commence par créer une commande en faisant localStorage.setItem de "commande (clé) " + "la valeur" [selectedProduct] ou faire un console.log de "selectedProduct*/
               
         });
 
@@ -123,7 +140,7 @@ onload = function() {
         
         // Endroit où sont stockées les infos pour pouvoir les y retrouver ultérieurement
         
-        localStorage.setItem('product', '1849');*/
+        localStorage.setItem('commande',["canapé1(à faire en JSON) "]);*/
         
             
     })
