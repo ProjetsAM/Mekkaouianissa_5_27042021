@@ -76,29 +76,22 @@ onload = function() {
             console.log(selectedProduct);  
             
             
+            // Vérifier s'il existe unecommande
 
-            /*if (productInLocalStorage) { 
+            let commandeExistante = JSON.parse(localStorage.getItem('commande'));
             
-            localStorage.setItem("product",JSON.stringify(productInLocalStorage));  
-            console.log(productInLocalStorage);
-
-            }
-
-            else  { 
-            
-            productInLocalStorage.push(product);
-            console.log(product);
-            } */
-
-            let commandeExistante = localStorage.getItem('commande');
 
             if (commandeExistante) {
+                commandeExistante.push(selectedProduct);
+                localStorage.setItem("commande",JSON.stringify(commandeExistante));
+                
                 console.log(commandeExistante);
             }
             else {
-                selectedProduct = [];
-                localStorage.setItem("commande",JSON.stringify(selectedProduct));
-                console.log(selectedProduct);
+                commandeExistante = [];
+                commandeExistante.push(selectedProduct);
+                localStorage.setItem("commande",JSON.stringify(commandeExistante));
+                console.log(commandeExistante);
 
             };
 
