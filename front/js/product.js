@@ -76,7 +76,7 @@ onload = function() {
             console.log(selectedProduct);  
             
             
-            // Vérifier s'il existe unecommande
+            // Vérifier s'il existe une commande
 
             let commandeExistante = JSON.parse(localStorage.getItem('commande'));
             
@@ -95,12 +95,7 @@ onload = function() {
 
             };
 
-            //Au clic vérifier s'il existe une commande :
-            // On déclare une variable  et le = lui affecte le résultat (getItem)
-            // "If" il existe une commande, alors on console.log "la commande"
-            /* "Else" alors il n'existe pas de commande on en crée une "commande", 
-            on commence par créer une commande en faisant localStorage.setItem de "commande (clé) " + "la valeur" [selectedProduct] ou faire un console.log de "selectedProduct*/
-              
+            
         });
 
         
