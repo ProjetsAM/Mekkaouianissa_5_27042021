@@ -2,6 +2,11 @@
 onload = function() {
     console.log("je suis sur la page product");
     let id;
+    let kanapName = document.getElementById("title");
+    let kanapDescription = document.getElementById("description");
+    let kanapPrice = document.getElementById("price");
+    let kanapImageUrl = document.querySelector(".item__img");
+
     const inputColor = document.getElementById("colors");
     const quantity = document.getElementById("quantity");
     
@@ -35,11 +40,6 @@ onload = function() {
         let colors = data.colors;
         let price = data.price;
         let id = data._id;
-        
-        let kanapName = document.getElementById("title");
-        let kanapDescription = document.getElementById("description");
-        let kanapPrice = document.getElementById("price");
-        let kanapImageUrl = document.querySelector(".item__img");
         
         kanapName.innerHTML = name;
         kanapDescription.innerHTML = description;
@@ -84,8 +84,10 @@ onload = function() {
             if (commandeExistante) {
                 commandeExistante.push(selectedProduct);
                 localStorage.setItem("commande",JSON.stringify(commandeExistante));
+                //console.log(commandeExistante.length); // Affiche le nombre d'article ds le localStorage
+                //console.log(localStorage.key(0)); //affiche la clé qui apparait ds le localStorage
+                console.log('commande');
                 
-                console.log(commandeExistante);
             }
             else {
                 commandeExistante = [];
@@ -95,9 +97,13 @@ onload = function() {
 
             };
 
+
             
         });
-
+        
+        if (quantity, inputColor){
+            alert("Veuillez saisir les informations requises.");
+        };
         
         
         
@@ -135,6 +141,13 @@ onload = function() {
     .catch((error) => {
         // Message d'erreur quand le serveur ne répond pas
         alert("le serveur ne répond pas");
+    
+        kanapName.innerHTML = "Non communiqué";
+        kanapDescription.innerHTML = "Non communiqué";
+        kanapPrice.innerHTML = "Non communiqué";
+        kanapImageUrl.innerHTML = `<p>Non communiqué</p>`;
+
+
     }); 
     
 };
