@@ -64,12 +64,12 @@ onload = function () {
                 console.log("quantity vaut  " , quantity.value);
                 console.log("color vaut " , inputColor.value);
 
-                if (inputColor.value === null) {
+                if (inputColor.value === "") {
                     alert("Veuillez saisir la couleur.");
                 
                 }
                 
-                else if (quantity.value) {
+                else if (quantity.value === '0') {
                     alert("Veuillez saisir la quantité");
 
                 }
@@ -95,7 +95,7 @@ onload = function () {
                 if (commandeExistante) {
                     commandeExistante.push(selectedProduct);
                     localStorage.setItem("commande", JSON.stringify(commandeExistante));
-                    console.log('commandeExistante:', JSON.parse(commandeExistante)); // Se servir de commande existante, on cherche ds ce tableau : le premier élément,c'est lui quia l'id recherché.
+                    console.log(commandeExistante); // Se servir de commande existante, on cherche ds ce tableau : le premier élément,c'est lui quia l'id recherché.
                     console.log(quantity.value);
 
                     
