@@ -97,6 +97,7 @@ onload = function () {
                     localStorage.setItem("commande", JSON.stringify(commandeExistante));
                     console.log(commandeExistante); // Se servir de commande existante, on cherche ds ce tableau : le premier élément,c'est lui quia l'id recherché.
                     console.log(quantity.value);
+                    console.log(commandeExistante[0]._id)
 
                     
                 }
