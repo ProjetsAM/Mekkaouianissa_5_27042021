@@ -6,10 +6,11 @@ onload = function () {
   // Soit il y a bien une commande à afficher : à ce stade on fait un console.log de la commande passée : if (getItem)
   // Soit le panier est vide : on affiche un message "votre panier est vide" (innerHTML) : else
 
-  let commande = localStorage.getItem("commande");
-
+  let commande = JSON.parse(localStorage.getItem('commande'));
+  // Boucle sur chaque élément du tableau commande, pour faire un console.log de chaque élément (chaque selectedPro)
   if (commande) {
-    console.log(commande);
+    for (i = 0; i < commande.length; i++)
+    console.log(commande[i]);
   }
   else {
 
