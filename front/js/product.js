@@ -20,9 +20,10 @@ onload = function () {
     };
     getIdFromUrl();
     // On veut vérifier si l'id n'est pas dans l'url
-    if (getIdFromUrl) {
+    if (id == null) {
         alert("Vous devez sélectionner un canapé auparavant");
     }
+    
 
     // Affiche le produit sur la page
 
@@ -73,7 +74,7 @@ onload = function () {
                 
                 }
                 //vérifier si la quantité est supérieure à 0 et inférieure ou égale à 100
-                else if (quantity.value >= 0 || quantity.value < 100) {
+                else if (quantity.value < 1 || quantity.value > 100) {
                     alert("Veuillez saisir une quantité entre 1 et 100");
 
                 }
