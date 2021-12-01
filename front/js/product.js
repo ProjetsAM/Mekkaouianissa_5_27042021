@@ -79,7 +79,7 @@ onload = function () {
 
                 }
                 else {
-                 //Récupération des options de l'article à ajouter au panier
+                 //Stockage des informations de l'article à ajouter au panier
                 const selectedProduct = {
                     _id: id,
                     _image: imageUrl,
@@ -92,18 +92,30 @@ onload = function () {
                 console.log('selectedProduct vaut', selectedProduct);
 
 
-                // Vérifier s'il existe une commande
+                // Vérifier s'il existe une commande dans le Local Storage
 
                 let commandeExistante = JSON.parse(localStorage.getItem('commande'));
 
 
                 if (commandeExistante) {
-                    commandeExistante.push(selectedProduct);
-                    localStorage.setItem("commande", JSON.stringify(commandeExistante));
                     console.log(commandeExistante); 
                     console.log(quantity.value);
-                    console.log(commandeExistante[0]._id)
+                    console.log(commandeExistante[0]._id);
+                    for (let j = 0; j < commandeExistante.length ; j++) {
+                        if (p => p._id == selectedProduct.id && p._color == selectedProduct.inputColor.value) { 
+                               // commandeExistante[j], j++ 
+                                
+                            }
+                    // Comparer l'id et la couleur du selectedProduct avec la ligne de la commandeExistante
 
+                    // On met à jour la quantité de cette ligne dans commandeExistante
+                        
+                        else {
+                            //On ajoute le selectedProduct à la commande
+                            commandeExistante.push(selectedProduct);
+                            localStorage.setItem("commande", JSON.stringify(commandeExistante));
+                        };
+                      };
                     
                 }
                 else {
@@ -117,43 +129,7 @@ onload = function () {
 
                 }
 
-                
-
-
             });
-
-
-
-
-
-            /*/------------------------------------------Stocker la récupération des valeurs du formulaire dans le local storage-----
-           
-           
-            //Déclaration de la variable "productInLocalStorage" dans laquelle on met les keys et les values qui sont dans le local storage
-            let productInLocalStorage = JSON.parse(localStorage.getItem('product'));
-            //--JSON.parse c'est pour convertir les données au format JSON qui sont dans le local storage en objet JavaScript        
-             console.log(productInLocalStorage);  // Retourne la valeur null
-           
-            // s'il y a déjà des produits d'enregistré dans le local storage
-            if(productInLocalStorage){
-                productInLocalStorage.push(selectedProduct);
-               
-               
-            }
-            // s'il n'y a pas de produits d'enregistré dans le local storage
-            else{
-                productInLocalStorage = [];
-                productInLocalStorage.push(selectedProduct);
-                localStorage.setItem("product", JSON.stringify(productInLocalStorage));
-               
-                console.log(productInLocalStorage);
-               
-            }      
-           
-            // Endroit où sont stockées les infos pour pouvoir les y retrouver ultérieurement
-           
-            localStorage.setItem('commande',["canapé1(à faire en JSON) "]);*/
-
 
         })
         .catch((error) => {
