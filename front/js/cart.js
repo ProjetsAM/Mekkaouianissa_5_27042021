@@ -15,9 +15,9 @@ onload = function () {
     for (i = 0; i < commande.length; i++){ 
 
       elementPanier.innerHTML += 
-       `article class="cart__item" data-id="{product-ID}">
+       `<article class="cart__item" "data-id="${commande[i]._id}" data-color="${commande[i]._color}" >
        <div class="cart__item__img">
-         <img src=${commande[i]._image} alt="Photographie d'un canapé">
+         <img src=${commande[i]._image} alt="${commande[i].altTxt}">
        </div>
        <div class="cart__item__content">
          <div class="cart__item__content__titlePrice">
@@ -26,8 +26,8 @@ onload = function () {
          </div>
          <div class="cart__item__content__settings">
            <div class="cart__item__content__settings__quantity">
-             <p>Qté :${commande[i]._quantity}</p>
-             <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
+             <p>Qté :</p>
+             <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${commande[i]._quantity}">
            </div>
            <div class="cart__item__content__settings__delete">
              <p class="deleteItem">Supprimer</p>

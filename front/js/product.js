@@ -97,17 +97,17 @@ onload = function () {
                 let commandeExistante = JSON.parse(localStorage.getItem('commande'));
 
 
-                if (commandeExistante) {
-                    console.log(commandeExistante); 
+                if (commandeExistante) { 
                     console.log(quantity.value);
                     console.log(commandeExistante[0]._id);
                     for (let j = 0; j < commandeExistante.length ; j++) {
-                        if (p => p._id == selectedProduct.id && p._color == selectedProduct.inputColor.value) { 
-                               // commandeExistante[j], j++ 
+                        if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) { 
+                            
+                                commandeExistante[j]._quantity++;
                                 
                             }
-                    // Comparer l'id et la couleur du selectedProduct avec la ligne de la commandeExistante
-
+                
+                    // Comparer l'id et la couleur du selectedProduct avec l'id et la couleur de la ligne de la commandeExistante
                     // On met à jour la quantité de cette ligne dans commandeExistante
                         
                         else {
