@@ -15,7 +15,7 @@ onload = function () {
     for (i = 0; i < commande.length; i++){ 
 
       elementPanier.innerHTML += 
-       `<article class="cart__item" "data-id="${commande[i]._id}" data-color="${commande[i]._color}" >
+       `<article class="cart__item" "data-id="${commande[i]._id}" data-color="Photographie d'un canapé" >
        <div class="cart__item__img">
          <img src=${commande[i]._image} alt="${commande[i].altTxt}">
        </div>
@@ -45,4 +45,4 @@ onload = function () {
 
     document.getElementById("cart__items").innerHTML = `<p>Votre panier est vide</p>`;
   };
-} // Si le panier est vide : afficher le panier est vide
+} 

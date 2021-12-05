@@ -101,21 +101,23 @@ onload = function () {
                     console.log(quantity.value);
                     console.log(commandeExistante[0]._id);
                     for (let j = 0; j < commandeExistante.length ; j++) {
+                        // Comparer l'id et la couleur du selectedProduct avec l'id et la couleur de la ligne de la commandeExistante
                         if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) { 
                             
                                 commandeExistante[j]._quantity++;
                                 
                             }
                 
-                    // Comparer l'id et la couleur du selectedProduct avec l'id et la couleur de la ligne de la commandeExistante
                     // On met à jour la quantité de cette ligne dans commandeExistante
                         
                         else {
                             //On ajoute le selectedProduct à la commande
+            
                             commandeExistante.push(selectedProduct);
                             localStorage.setItem("commande", JSON.stringify(commandeExistante));
+                            
                         };
-                      };
+                    };
                     
                 }
                 else {
@@ -123,8 +125,10 @@ onload = function () {
                     commandeExistante.push(selectedProduct);
                     localStorage.setItem("commande", JSON.stringify(commandeExistante));
                     console.log(commandeExistante);
-
+                    
                 };
+                
+                alert('Votre article a été ajouté au panier');
 
 
                 }
