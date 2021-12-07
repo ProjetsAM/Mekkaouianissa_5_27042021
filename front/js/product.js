@@ -24,7 +24,6 @@ onload = function () {
         alert("Vous devez sélectionner un canapé auparavant");
     }
     
-
     // Affiche le produit sur la page
 
     const urlProduct = `http://localhost:3000/api/products/${id}`;
@@ -50,14 +49,11 @@ onload = function () {
             kanapPrice.innerHTML = price;
             kanapImageUrl.innerHTML = `<img src=${imageUrl} alt=${altTxt}>`;
 
-
             // Boucle sur les couleurs des  canapés
-
 
             for (let i = 0; i < colors.length; i++) {
                 console.log(colors[i]);
                 inputColor.innerHTML += `<option value = ${colors[i]}>${colors[i]}</option>`;
-
 
             };
 
@@ -96,7 +92,6 @@ onload = function () {
 
                 let commandeExistante = JSON.parse(localStorage.getItem('commande'));
 
-
                 if (commandeExistante) { 
                     console.log(quantity.value);
                     console.log(commandeExistante[0]._id);
@@ -108,7 +103,7 @@ onload = function () {
                                 
                             }
                 
-                    // On met à jour la quantité de cette ligne dans commandeExistante
+                // On met à jour la quantité de cette ligne dans commandeExistante
                         
                         else {
                             //On ajoute le selectedProduct à la commande
@@ -127,14 +122,10 @@ onload = function () {
                     console.log(commandeExistante);
                     
                 };
-                
                 alert('Votre article a été ajouté au panier');
 
-
                 }
-
             });
-
         })
         .catch((error) => {
             // Message d'erreur quand le serveur ne répond pas
@@ -145,7 +136,5 @@ onload = function () {
             kanapPrice.innerHTML = "Non communiqué";
             kanapImageUrl.innerHTML = `<p>Non communiqué</p>`;
 
-
         });
-
 };

@@ -1,28 +1,22 @@
 onload = function () {
   console.log("je suis sur la page cart");
-  // Le panier(cart.js) récupère la commande (sa sélection)passée dans le localstorage 
-  // On déclare une variable et on lui affecte par le = ce qu'il y a ds le localstorage de (clé "commande") 
-  // Deux cas de figure : 
-  // Soit il y a bien une commande à afficher : à ce stade on fait un console.log de la commande passée : if (getItem)
-  // Soit le panier est vide : on affiche un message "votre panier est vide" (innerHTML) : else
-
+  // Le panier récupère la commande passée dans le localstorage 
+  // On déclare une variable et on lui affecte par le = ce qu'il y a ds le localstorage de (clé "commande")  
   let commande = JSON.parse(localStorage.getItem('commande'));
   const elementPanier = document.getElementById("cart__items");
-  let structureProduitPanier = [];
-  // Boucle sur chaque élément du tableau commande, pour faire un console.log de chaque élément (chaque selectedPro)
-  // Si le panier n'est pas vide : afficher les produits dans le localStorage
+
+  // Affichage des produits qu'il y a dans le panier
     if (commande) {
     for (i = 0; i < commande.length; i++){ 
-
       elementPanier.innerHTML += 
-       `<article class="cart__item" "data-id="${commande[i]._id}" data-color="Photographie d'un canapé" >
+       `<article class="cart__item" "data-id="${commande[i]._id}" data-color="${commande[i]._color}" >
        <div class="cart__item__img">
-         <img src=${commande[i]._image} alt="${commande[i].altTxt}">
+         <img src=${commande[i]._image} alt="Photographie d'un canapé">
        </div>
        <div class="cart__item__content">
          <div class="cart__item__content__titlePrice">
            <h2>${commande[i]._name}</h2>
-           <p> ${commande[i]._price}</p>
+           <p> ${commande[i]._price} €</p>
          </div>
          <div class="cart__item__content__settings">
            <div class="cart__item__content__settings__quantity">
@@ -35,10 +29,6 @@ onload = function () {
          </div>
        </div>
      </article> `;
-
-    console.log(commande[i]);
-    console.log(commande[i]._quantity)
-  
    }
   }
   else {
@@ -46,3 +36,38 @@ onload = function () {
     document.getElementById("cart__items").innerHTML = `<p>Votre panier est vide</p>`;
   };
 } 
+
+// Pour supprimer un article dans le panier
+// 1 Sélection de tous les boutons deleteItem
+let deleteItem = document.querySelectorAll(".deleteItem");
+console.log(deleteItem);
+
+// 2 Sélection de l'id du produit qui va être supprimé en cliquant sur le bouton
+for(let l = 0; l < deleteItem.length; l++){
+  deleteItem[l].addEventListener("click", (event) =>{
+    event.preventDefault();
+  
+
+// 3 Selectionner l'id du produit qui va être supprimé en cliquant sur le bouton
+let supprId = commande[l]._id;
+
+//4 Filtrer l'élément cliqué par le btn supprimer
+commande = commande.filter(element => element._id !== supprId);
+
+
+//5 Envoyer les nouvelles données dans le localStorage
+localStorage.setItem('commande', JSON.stringify(commande));
+
+//6 Avertir de la suppression et recharger la page 
+alert('Votre article a bien été supprimé.');
+window.location.href = "cart.html";
+  });
+}
+
+/*/Récupération du total de la commande et de la quantité des articles dans le panier
+
+let totalPrice = [];
+
+for (let m = 0; m < totalPrice.length; m++) {
+  console.log(totalPrice[m]._price);
+};*/
