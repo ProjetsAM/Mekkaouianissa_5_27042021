@@ -99,11 +99,11 @@ onload = function () {
                         // Comparer l'id et la couleur du selectedProduct avec l'id et la couleur de la ligne de la commandeExistante
                         if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) { 
                             
-                                commandeExistante[j]._quantity++;
-                                
+                            // On met à jour la quantité de cette ligne dans commandeExistante
+                                commandeExistante[j]._quantity += selectedProduct._quantity;
+                                //selectedProduct._quantity convertir en "entier" ligne 103
+                                localStorage.setItem("commande", JSON.stringify(commandeExistante));
                             }
-                
-                // On met à jour la quantité de cette ligne dans commandeExistante
                         
                         else {
                             //On ajoute le selectedProduct à la commande

@@ -39,16 +39,16 @@ onload = function () {
 
 // Pour supprimer un article dans le panier
 // 1 Sélection de tous les boutons deleteItem
-let deleteItem = document.querySelectorAll(".deleteItem");
-console.log(deleteItem);
+let deleteItems = document.querySelectorAll(".deleteItem");
+console.log(deleteItems);
 
-// 2 Sélection de l'id du produit qui va être supprimé en cliquant sur le bouton
-for(let l = 0; l < deleteItem.length; l++){
-  deleteItem[l].addEventListener("click", (event) =>{
+// 2 Mise en place de l'écoute clic sur les boutons
+for(let l = 0; l < deleteItems.length; l++){
+  deleteItems[l].addEventListener("click", (event) =>{
     event.preventDefault();
   
 
-// 3 Selectionner l'id du produit qui va être supprimé en cliquant sur le bouton
+// 3 Sélectionner l'id du produit qui va être supprimé en cliquant sur le bouton
 let supprId = commande[l]._id;
 
 //4 Filtrer l'élément cliqué par le btn supprimer
