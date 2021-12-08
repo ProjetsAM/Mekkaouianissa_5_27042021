@@ -100,8 +100,7 @@ onload = function () {
                         if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) { 
                             
                             // On met à jour la quantité de cette ligne dans commandeExistante
-                                commandeExistante[j]._quantity += selectedProduct._quantity;
-                                //selectedProduct._quantity convertir en "entier" ligne 103
+                                commandeExistante[j]._quantity += parseInt(selectedProduct._quantity);
                                 localStorage.setItem("commande", JSON.stringify(commandeExistante));
                             }
                         

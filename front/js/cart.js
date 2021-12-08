@@ -17,6 +17,7 @@ onload = function () {
          <div class="cart__item__content__titlePrice">
            <h2>${commande[i]._name}</h2>
            <p> ${commande[i]._price} €</p>
+
          </div>
          <div class="cart__item__content__settings">
            <div class="cart__item__content__settings__quantity">
@@ -24,7 +25,7 @@ onload = function () {
              <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${commande[i]._quantity}">
            </div>
            <div class="cart__item__content__settings__delete">
-             <p class="deleteItem">Supprimer</p>
+             <button class="deleteItem">Supprimer</button>
            </div>
          </div>
        </div>
@@ -34,10 +35,14 @@ onload = function () {
   else {
 
     document.getElementById("cart__items").innerHTML = `<p>Votre panier est vide</p>`;
+    deleteItems.addEventListener("click", (event)=>{
+      event.preventDefault();
+    });
   };
 } 
 
-// Pour supprimer un article dans le panier
+// Fonction pour supprimer un article dans le panier
+function deleteBasket() { 
 // 1 Sélection de tous les boutons deleteItem
 let deleteItems = document.querySelectorAll(".deleteItem");
 console.log(deleteItems);
@@ -63,6 +68,8 @@ alert('Votre article a bien été supprimé.');
 window.location.href = "cart.html";
   });
 }
+};
+deleteBasket()
 
 /*/Récupération du total de la commande et de la quantité des articles dans le panier
 
