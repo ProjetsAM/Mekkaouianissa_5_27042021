@@ -16,6 +16,7 @@ onload = function () {
        <div class="cart__item__content">
          <div class="cart__item__content__titlePrice">
            <h2>${commande[i]._name}</h2>
+           <p>color : ${commande[i]._color}</p>
            <p> ${commande[i]._price} €</p>
 
          </div>
@@ -71,10 +72,29 @@ window.location.href = "cart.html";
 };
 deleteBasket()
 
-/*/Récupération du total de la commande et de la quantité des articles dans le panier
+// Récupération du total des articles
 
+
+
+
+
+
+
+
+//Récupération du montant total de la commande dans le panier
+
+// Déclarer la variable pour pouvoir y mettre les prix qui sont dans le panier
 let totalPrice = [];
+// Récupérer les prix qui sont dans le panier
+for (let m = 0; m < commande.length; m++) {
+  const totalAmount = commande[m]._price ;
 
-for (let m = 0; m < totalPrice.length; m++) {
-  console.log(totalPrice[m]._price);
-};*/
+// Mettre les prix du panier dans la variable totalPrice
+  totalPrice.push(totalAmount);
+}
+// Additionner les prix qu'il y a dans le tableau de la variable totalPrice avec "reduce"
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+const price = totalPrice.reduce(reducer);
+
+const totalPanier = document.getElementById('totalPrice');
+

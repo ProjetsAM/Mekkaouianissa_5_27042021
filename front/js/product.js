@@ -31,11 +31,6 @@ onload = function () {
     fetch(urlProduct)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
-            console.log(data.price);
-            console.log(data.description);
-            console.log(data.name);
-
             let name = data.name;
             let description = data.description;
             let imageUrl = data.imageUrl;
@@ -62,9 +57,6 @@ onload = function () {
             const btn = document.getElementById("addToCart");
 
             btn.addEventListener('click', () => {
-                console.log("quantity vaut  " , quantity.value);
-                console.log("color vaut " , inputColor.value);
-
                 if (inputColor.value === "") {
                     alert("Veuillez saisir la couleur.");
                 
@@ -92,48 +84,39 @@ onload = function () {
 
                 let commandeExistante = JSON.parse(localStorage.getItem('commande'));
 
-                if (commandeExistante) { 
-                    console.log(quantity.value);
-                    console.log(commandeExistante[0]._id);
-                    for (let j = 0; j < commandeExistante.length ; j++) {
-                        // Comparer l'id et la couleur du selectedProduct avec l'id et la couleur de la ligne de la commandeExistante
-                        if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) { 
-                            
-                            // On met à jour la quantité de cette ligne dans commandeExistante
-                                commandeExistante[j]._quantity += parseInt(selectedProduct._quantity);
-                                localStorage.setItem("commande", JSON.stringify(commandeExistante));
-                            }
-                        
-                        else {
-                            //On ajoute le selectedProduct à la commande
-            
-                            commandeExistante.push(selectedProduct);
-                            localStorage.setItem("commande", JSON.stringify(commandeExistante));
-                            
-                        };
-                    };
-                    
-                }
-                else {
+                if (!commandeExistante) {
                     commandeExistante = [];
                     commandeExistante.push(selectedProduct);
-                    localStorage.setItem("commande", JSON.stringify(commandeExistante));
-                    console.log(commandeExistante);
-                    
-                };
-                alert('Votre article a été ajouté au panier');
-
                 }
-            });
-        })
-        .catch((error) => {
-            // Message d'erreur quand le serveur ne répond pas
-            alert("le serveur ne répond pas");
+                else {
+                    let productExistantDansCommande = false ;
+                   
+                    for (let j = 0; j < commandeExistante.length ; j++) {
 
-            kanapName.innerHTML = "Non communiqué";
-            kanapDescription.innerHTML = "Non communiqué";
-            kanapPrice.innerHTML = "Non communiqué";
-            kanapImageUrl.innerHTML = `<p>Non communiqué</p>`;
-
+                        // Comparer l'id et la couleur du selectedProduct avec l'id et la couleur de la ligne de la commandeExistante
+                        if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) {
+                            commandeExistante[j]._quantity += selectedProduct._quantity;
+                            productExistantDansCommande = true ;
+                        }
+                    }
+                    if(!productExistantDansCommande) {
+                        commandeExistante.push(selectedProduct);
+                    }
+                }
+                
+                localStorage.setItem("commande", JSON.stringify(commandeExistante));
+                alert('Votre article a été ajouté au panier');
+            }
         });
+    })
+    .catch((error) => {
+        // Message d'erreur quand le serveur ne répond pas
+        alert("le serveur ne répond pas");
+
+        kanapName.innerHTML = "Non communiqué";
+        kanapDescription.innerHTML = "Non communiqué";
+        kanapPrice.innerHTML = "Non communiqué";
+        kanapImageUrl.innerHTML = `<p>Non communiqué</p>`;
+    });
 };
+
