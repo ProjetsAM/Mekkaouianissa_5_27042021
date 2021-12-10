@@ -1,4 +1,4 @@
-onload = function () {
+onload = function() {
     console.log("je suis sur la page product");
     let id;
     let kanapName = document.getElementById("title");
@@ -23,7 +23,7 @@ onload = function () {
     if (id == null) {
         alert("Vous devez sélectionner un canapé auparavant");
     }
-    
+
     // Affiche le produit sur la page
 
     const urlProduct = `http://localhost:3000/api/products/${id}`;
@@ -59,64 +59,61 @@ onload = function () {
             btn.addEventListener('click', () => {
                 if (inputColor.value === "") {
                     alert("Veuillez saisir la couleur.");
-                
+
                 }
                 //vérifier si la quantité est supérieure à 0 et inférieure ou égale à 100
                 else if (quantity.value < 1 || quantity.value > 100) {
                     alert("Veuillez saisir une quantité entre 1 et 100");
 
-                }
-                else {
-                 //Stockage des informations de l'article à ajouter au panier
-                const selectedProduct = {
-                    _id: id,
-                    _image: imageUrl,
-                    _name: name,
-                    _price: price,
-                    _color: inputColor.value,
-                    _quantity: quantity.value,
-                };
-                console.log('vous avez cliqué');
-                console.log('selectedProduct vaut', selectedProduct);
+                } else {
+                    //Stockage des informations de l'article à ajouter au panier
+                    const selectedProduct = {
+                        _id: id,
+                        _image: imageUrl,
+                        _name: name,
+                        _price: price,
+                        _color: inputColor.value,
+                        _quantity: quantity.value,
+                    };
+                    console.log('vous avez cliqué');
+                    console.log('selectedProduct vaut', selectedProduct);
 
 
-                // Vérifier s'il existe une commande dans le Local Storage
+                    // Vérifier s'il existe une commande dans le Local Storage
 
-                let commandeExistante = JSON.parse(localStorage.getItem('commande'));
+                    let commandeExistante = JSON.parse(localStorage.getItem('commande'));
 
-                if (!commandeExistante) {
-                    commandeExistante = [];
-                    commandeExistante.push(selectedProduct);
-                }
-                else {
-                    let productExistantDansCommande = false ;
-                   
-                    for (let j = 0; j < commandeExistante.length ; j++) {
+                    if (!commandeExistante) {
+                        commandeExistante = [];
+                        commandeExistante.push(selectedProduct);
+                    } else {
+                        let productExistantDansCommande = false;
 
-                        // Comparer l'id et la couleur du selectedProduct avec l'id et la couleur de la ligne de la commandeExistante
-                        if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) {
-                            commandeExistante[j]._quantity += selectedProduct._quantity;
-                            productExistantDansCommande = true ;
+                        for (let j = 0; j < commandeExistante.length; j++) {
+
+                            // Comparer l'id et la couleur du selectedProduct avec l'id et la couleur de la ligne de la commandeExistante
+                            if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) {
+                                commandeExistante[j]._quantity += parseInt(selectedProduct._quantity);
+                                productExistantDansCommande = true;
+                            }
+                        }
+                        if (!productExistantDansCommande) {
+                            commandeExistante.push(selectedProduct);
                         }
                     }
-                    if(!productExistantDansCommande) {
-                        commandeExistante.push(selectedProduct);
-                    }
+
+                    localStorage.setItem("commande", JSON.stringify(commandeExistante));
+                    alert('Votre article a été ajouté au panier');
                 }
-                
-                localStorage.setItem("commande", JSON.stringify(commandeExistante));
-                alert('Votre article a été ajouté au panier');
-            }
+            });
+        })
+        .catch((error) => {
+            // Message d'erreur quand le serveur ne répond pas
+            alert("le serveur ne répond pas");
+
+            kanapName.innerHTML = "Non communiqué";
+            kanapDescription.innerHTML = "Non communiqué";
+            kanapPrice.innerHTML = "Non communiqué";
+            kanapImageUrl.innerHTML = `<p>Non communiqué</p>`;
         });
-    })
-    .catch((error) => {
-        // Message d'erreur quand le serveur ne répond pas
-        alert("le serveur ne répond pas");
-
-        kanapName.innerHTML = "Non communiqué";
-        kanapDescription.innerHTML = "Non communiqué";
-        kanapPrice.innerHTML = "Non communiqué";
-        kanapImageUrl.innerHTML = `<p>Non communiqué</p>`;
-    });
 };
-
