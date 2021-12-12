@@ -6,8 +6,9 @@ onload = function () {
   const elementPanier = document.getElementById("cart__items");
   const totalPanier = document.getElementById('totalPrice');
   const totalQuantite = document.getElementById('totalQuantity');
-  let totalPrice = 0;
-  let totalQuantity = 0;
+  let totalPrice = commande[i]._price * commande[i]._quantity;
+  let totalQuantity = commande[i]._quantity;
+ 
 
   // Affichage des produits qu'il y a dans le panier
     if (commande) {
@@ -34,6 +35,9 @@ onload = function () {
          </div>
        </div>
      </article> `;
+     totalQuantity.innerText += `<span id="totalQuantity"></span>`; 
+     totalPrice.innerText += `<span id="totalPrice"></span>`;
+
    }
   }
   else {
@@ -42,26 +46,25 @@ onload = function () {
 
   // Fonction pour supprimer un article dans le panier
   function deleteProduct() {
-    // 1 Sélection de tous les boutons deleteItem
+    // Sélection de tous les boutons deleteItem
     let deleteItems = document.querySelectorAll(".deleteItem");
-    console.log(deleteItems);
-
-    // 2 Mise en place de l'écoute clic sur les boutons
+    
+    // Mise en place de l'écoute clic sur les boutons
     for(let l = 0; l < deleteItems.length; l++){
       deleteItems[l].addEventListener("click", (event) =>{
         event.preventDefault();
      
-    // 3 Sélectionner l'id du produit qui va être supprimé en cliquant sur le bouton
+    // Sélectionner l'id du produit qui va être supprimé en cliquant sur le bouton
     let supprId = commande[l]._id;
     let supprColor = commande[l]._color;
 
-    //4 Filtrer l'élément cliqué par le btn supprimer
+    // Filtrer l'élément cliqué par le btn supprimer
     commande = commande.filter(element => element._id !== supprId || element._color !== supprColor);
     
-    //5 Envoyer les nouvelles données dans le localStorage
+    // Envoyer les nouvelles données dans le localStorage
     localStorage.setItem('commande', JSON.stringify(commande));
 
-    //6 Avertir de la suppression et recharger la page
+    //  Avertir de la suppression et recharger la page
     alert('Votre article a bien été supprimé.');
     window.location.href = "cart.html";
       }); 
@@ -72,7 +75,7 @@ onload = function () {
   
 //************************Récupération du total des articles***********************************************
   
-  //Afficher le total des articles dans le panier
+  // Afficher le total des articles dans le panier
 function totalArticles() {
   let totalItems = 0;
   for (l in commande) {
@@ -92,23 +95,15 @@ totalArticles();
   
 //************************Récupération du montant total de la commande dans le panier***********************
  
-/*function priceBasket() {
-  // Déclarer la variable pour pouvoir y mettre les prix qui sont dans le panier
-  let totalPrice = 0;
-  for (m = 0; m < commande.length; m++) {
-    // prix de l'article quantité * prix
-    const cartAmount = commande[m]._price * commande[m]._quantity;
-    // Mettre les prix du panier dans la variable totalPrice
-    //totalPrice.push(cartAmount);
+function priceBasket() {
+  // prix de l'article quantité * prix
+   totalPrice  
+   
   
-    // Additionner les prix qu'il y a dans le tableau de la variable totalPrice avec "reduce"
-    const reduce = (previousValue, currentValue) => previousValue + currentValue;
-    const price = totalPrice.reduce(reducer);
-  }
-  const totalTotal = document.getElementById('totalPrice');
+  const totalPanier = document.getElementById('totalPrice');
   
 }
-priceBasket();*/
+priceBasket();
 
 
 }; 
