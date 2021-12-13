@@ -93,7 +93,7 @@ onload = function() {
 
                             // Comparer l'id et la couleur du selectedProduct avec l'id et la couleur de la ligne de la commandeExistante
                             if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) {
-                                commandeExistante[j]._quantity += parseInt(selectedProduct._quantity);
+                                commandeExistante[j]._quantity = parseInt(commandeExistante[j]._quantity) + parseInt(selectedProduct._quantity);
                                 productExistantDansCommande = true;
                             }
                         }
