@@ -86,18 +86,21 @@ onload = function() {
                     if (!commandeExistante) {
                         commandeExistante = [];
                         commandeExistante.push(selectedProduct);
-                    } else {
+                    }
+                    else {
                         let productExistantDansCommande = false;
 
                         for (let j = 0; j < commandeExistante.length; j++) {
 
                             // Comparer l'id et la couleur du selectedProduct avec l'id et la couleur de la ligne de la commandeExistante
                             if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) {
+                                // Mise à jour d'un selectedProduct existant
                                 commandeExistante[j]._quantity = parseInt(commandeExistante[j]._quantity) + parseInt(selectedProduct._quantity);
                                 productExistantDansCommande = true;
                             }
                         }
                         if (!productExistantDansCommande) {
+                            //On ajoute un selectedProduct nouveau à la commande
                             commandeExistante.push(selectedProduct);
                         }
                     }

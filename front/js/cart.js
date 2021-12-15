@@ -4,22 +4,11 @@ onload = function () {
   // On déclare une variable et on lui affecte par le = ce qu'il y a ds le localstorage de (clé "commande")  
   let commande = JSON.parse(localStorage.getItem('commande'));
   const elementPanier = document.getElementById("cart__items");
-  // const totalPanier = document.getElementById('totalPrice');  // abandonnons cette piste
-  // const totalQuantite = document.getElementById('totalQuantity');  // abandonnons cette piste
-  // let totalPrice = commande[i]._price * commande[i]._quantity;  // [i] n'est pas connu à ce stade
-  // let totalQuantity = commande[i]._quantity; // [i] n'est pas connu à ce stade
-  // let totalPrice = 0; // si on veut garder 1 seule boucle, mais abandonnons cette piste
-  // let totalQuantity = 0; //  si on veut garder 1 seule boucle, mais abandonnons cette piste
-
-  const itemsTarget = document.getElementById('order');
-  const form = document.querySelector(".cart__order__form");
- // Récupérer l'element dans le HTML
-  let inputFirstName = document.getElementById("firstName");
-  let inputLastName = document.getElementById("lastName");
-  let inputAdress = document.getElementById("adress");
-  let inputCity = document.getElementById("city");
-  let inputEmail = document.getElementById("email");
-
+  const totalPanier = document.getElementById('totalPrice'); 
+  const totalQuantite = document.getElementById('totalQuantity');  
+  let totalPrice = 0; 
+  let totalQuantity = 0; 
+  
   // Affichage des produits qu'il y a dans le panier
     if (commande) {
     for (i = 0; i < commande.length; i++){
@@ -45,10 +34,12 @@ onload = function () {
          </div>
        </div>
      </article> `;
-    totalQuantity.innerText = "2";  // innerText cest sans html , confusion avec totalQuantite.innerText = ; pas besoin de +=
-    totalPrice.innerText = "84"; // innerText cest sans html , confusion avec totalPanier.innerText = ; pas besoin de +=
+    totalPrice += commande[i]._price * commande[i]._quantity; 
+    totalQuantity += commande[i]._quantity; 
     
    }
+   totalQuantite.textContent = totalQuantity;
+   totalPanier.textContent = totalPrice;
   }
   else {
     document.getElementById("cart__items").innerHTML = `<p>Votre panier est vide</p>`
@@ -87,7 +78,7 @@ onload = function () {
 //************************Récupération du total des articles***********************************************
  
   // Afficher le total des articles dans le panier
-function totalArticles() {
+/*function totalArticles() {
   let totalItems = 0;
   for (l in commande) {
     // Convertir la valeur 'quantité' dans le localstorage en une chaîne
@@ -101,12 +92,12 @@ function totalArticles() {
     const totalQuantity = document.getElementById('totalQuantity');
     totalQuantity.textContent = totalItems;
 }
-totalArticles();
+totalArticles();*/
  
  
 //************************Récupération du montant total de la commande dans le panier***********************
  
-function priceBasket() {
+/*function priceBasket() {
   let totalCart = 0;
   for (m in commande) {
     const newTotal = parseInt(commande[m]._quantity) *  parseInt(commande[m]._price);
@@ -116,42 +107,44 @@ function priceBasket() {
     totalPanier.textContent = totalCart;  
 }
 priceBasket();
-
+*/
 
 //****************************Vérification du formulaire de contact*****************************************
-
-// Function qui récupère la valeur de l'email qui apparaît en page cart.html
-const getEmailValue = function() {
-  
-  console.log(email.value);
-};
-// J'appelle la function getEmailValue
-getEmailValue();
+// Récupérer l'element dans le HTML (DOM)
+const form = document.querySelector(".cart__order__form");
+let inputFirstName = document.getElementById("firstName");
+let inputLastName = document.getElementById("lastName");
+let inputAdress = document.getElementById("adress");
+let inputCity = document.getElementById("city");
+let inputEmail = document.getElementById("email");
 
 // Ecouter soumission du formulaire
 // Appeler la function qui récupère la valeur de l'email
-
 form.addEventListener('submit', function(event) {
   // Stoppe le comportement par défaut qui , ici, rafraichit la page
   event.preventDefault();
   console.log('click');
 })
-
-
-// RegEx qui vérifie que l' email  et le prenom sont valide
-
-const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
-let testEmail = RegExpEmail.test(inputEmail.value);
-
-// Test pour appliquer la RegExEmail à la valeur de l'email, (true ou false)
-console.log(testEmail);
-
-
-const RegExpFirstName = (/^[a-z ,.'-]+$/i);
-let testFirstName = RegExpFirstName.test(inputFirstName.value);
-//  Regex qui valide la verification
-
-//Console log de la verification du 2e champs
-console.log(testFirstName);
-
+// Fonction qui vérifie que l' email est valide
+function controlAnEmail() { 
+  const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
+  let testEmail = RegExpEmail.test(inputEmail.value)
+  if (testEmail) {
+    return true;
+  } else {
+    let emailErrorMsg = document.getElementById ('emailErrorMsg');
+    emailErrorMsg.innerText = "Adresse email invalide";
+  }
+}
+// Fonction qui vérifie que le prenom est valide
+function controlfirstName() { 
+  const RegExpFirstName = (/^[a-z ,.'-]+$/i);
+  let testFirstName = RegExpFirstName.test(inputFirstName.value);
+  if(testFirstName){
+    return true;
+  } else {
+    let firstNameErrorMsg = document.getElementById ('firstNameErrorMsg');
+    firstNameErrorMsg.innerText = "Prénom invalide";
+  }  
+}
 };
