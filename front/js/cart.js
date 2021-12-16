@@ -123,27 +123,34 @@ onload = function() {
       // Stoppe le comportement par défaut qui , ici, rafraichit la page
       event.preventDefault();
       console.log('click');
-  })
-  // Fonction qui vérifie que l' email est valide
-  function controlAnEmail() {
-      const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
-      let testEmail = RegExpEmail.test(inputEmail.value)
-      if (testEmail) {
+      // si le panier est vide : afficher 'le panier est vide'
+      if(commande === null || commande == 0) {
+        document.querySelector("#cart__items").innerHTML =`
+        <div class="cart__empty">
+          <p>Votre panier est vide ! <br> Merci de sélectionner des produits depuis la page d'accueil</p>
+        </div>`;
+      }
+      // Fonction qui vérifie que l' email est valide
+      function controlAnEmail() {
+        const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
+        let testEmail = RegExpEmail.test(inputEmail.value)
+        if (testEmail) {
           return true;
-      } else {
+        } else {
           let emailErrorMsg = document.getElementById('emailErrorMsg');
           emailErrorMsg.innerText = "Adresse email invalide";
+        }
       }
-  }
-  // Fonction qui vérifie que le prenom est valide
-  function controlfirstName() {
-      const RegExpFirstName = (/^[a-z ,.'-]+$/i);
-      let testFirstName = RegExpFirstName.test(inputFirstName.value);
-      if (testFirstName) {
+      // Fonction qui vérifie que le prenom est valide
+      function controlfirstName() {
+        const RegExpFirstName = (/^[a-z ,.'-]+$/i);
+        let testFirstName = RegExpFirstName.test(inputFirstName.value);
+        if (testFirstName) {
           return true;
-      } else {
+        } else {
           let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
           firstNameErrorMsg.innerText = "Prénom invalide";
+        }
       }
-  }
+    })
 };
