@@ -73,7 +73,7 @@ onload = function() {
                         _name: name,
                         _price: price,
                         _color: inputColor.value,
-                        _quantity: quantity.value,
+                        _quantity: parseInt(quantity.value),
                     };
                     console.log('vous avez cliqué');
                     console.log('selectedProduct vaut', selectedProduct);
