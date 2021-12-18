@@ -43,7 +43,6 @@ onload = function() {
   } else {
       document.getElementById("cart__items").innerHTML = `<p>Votre panier est vide</p>`
   };
-
   // Fonction pour supprimer un article dans le panier
   function deleteProduct() {
       // Sélection de tous les boutons deleteItem
@@ -72,8 +71,6 @@ onload = function() {
       }
   };
   deleteProduct();
-
-
   //************************Récupération du total des articles***********************************************
 
   // Afficher le total des articles dans le panier
@@ -130,17 +127,7 @@ onload = function() {
           <p>Votre panier est vide ! <br> Merci de sélectionner des produits depuis la page d'accueil</p>
         </div>`;
       }
-      // Fonction qui vérifie que l' email est valide
-      function controlAnEmail() {
-        const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
-        let testEmail = RegExpEmail.test(inputEmail.value)
-        if (testEmail) {
-          return true;
-        } else {
-          let emailErrorMsg = document.getElementById('emailErrorMsg');
-          emailErrorMsg.innerText = "Adresse email invalide";
-        }
-      }
+      
       // Fonction qui vérifie que le prenom est valide
       function controlfirstName() {
         const RegExpFirstName = (/^[a-z ,.'-]+$/i);
@@ -150,6 +137,50 @@ onload = function() {
         } else {
           let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
           firstNameErrorMsg.innerText = "Prénom invalide";
+        }
+      }
+      //Fonction qui vérifie que le nom est valide
+      function controlName () {
+        const RegExpName = (/^[a-z ,.'-]+$/i);
+        let testLastName  = RegExpName.test(inputLastName.value);
+        if (testLastName) {
+          return true;
+        } else { 
+          let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
+          lastNameErrorMsg.innerText = "Nom invalide";
+        }
+      }
+      //Fonction qui vérifie que l'adresse est valide 
+      function controlAddress (){
+        const RegExpAddress = (/\d{2}[ ]?\d{3}$/);
+        let testAddress = RegExpAddress.test(inputAddress.value);
+        if(testAdress) {
+          return true;
+        } else { 
+          let addressErrorMsg = document.getElementById('addressErrorMsg');
+          addressErrorMsg.innerText = "Adresse incorrecte";
+        }
+      }
+      // Fonction qui vérifie que la ville est valide
+      function controlCity () {
+        const RegExCity = (/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,10}$/);
+        let testCity = RegExp.test(inputCity.value);
+        if(testCity){
+          return true;
+        } else { 
+          let cityErrorMsg = document.getElementById('cityErrorMsg');
+          cityErrorMsg.innerText = "Merci d'ajouter une ville ";
+        }
+      }
+      // Fonction qui vérifie que l' email est valide
+      function controlAnEmail() {
+        const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
+        let testEmail = RegExpEmail.test(inputEmail.value)
+        if (testEmail) {
+          return true;
+        } else {
+          let emailErrorMsg = document.getElementById('emailErrorMsg');
+          emailErrorMsg.innerText = "Adresse email invalide";
         }
       }
     })
