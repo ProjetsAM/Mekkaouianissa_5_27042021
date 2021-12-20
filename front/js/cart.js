@@ -121,13 +121,16 @@ onload = function() {
       event.preventDefault();
       console.log('click');
       // si le panier est vide : afficher 'le panier est vide'
-      if(commande === null || commande == 0) {
+      console.log("commande", commande)
+      if(commande === null || commande.length == 0) {
         document.querySelector("#cart__items").innerHTML =`
         <div class="cart__empty">
           <p>Votre panier est vide ! <br> Merci de sélectionner des produits depuis la page d'accueil</p>
         </div>`;
       }
-      
+      controlfirstName();
+      controlName();
+      controlAnEmail();
       // Fonction qui vérifie que le prenom est valide
       function controlfirstName() {
         const RegExpFirstName = (/^[a-z ,.'-]+$/i);
@@ -150,28 +153,6 @@ onload = function() {
           lastNameErrorMsg.innerText = "Nom invalide";
         }
       }
-      //Fonction qui vérifie que l'adresse est valide 
-      function controlAddress (){
-        const RegExpAddress = (/\d{2}[ ]?\d{3}$/);
-        let testAddress = RegExpAddress.test(inputAddress.value);
-        if(testAdress) {
-          return true;
-        } else { 
-          let addressErrorMsg = document.getElementById('addressErrorMsg');
-          addressErrorMsg.innerText = "Adresse incorrecte";
-        }
-      }
-      // Fonction qui vérifie que la ville est valide
-      function controlCity () {
-        const RegExCity = (/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,10}$/);
-        let testCity = RegExp.test(inputCity.value);
-        if(testCity){
-          return true;
-        } else { 
-          let cityErrorMsg = document.getElementById('cityErrorMsg');
-          cityErrorMsg.innerText = "Merci d'ajouter une ville ";
-        }
-      }
       // Fonction qui vérifie que l' email est valide
       function controlAnEmail() {
         const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
@@ -184,4 +165,27 @@ onload = function() {
         }
       }
     })
+    //********************************Modification des quantités*************************/
+    function modifQuantity() {
+      // Sélection de tous les boutons deleteItem
+      let itemQuantity = document.querySelectorAll(".itemQuantity");
+      // Mise en place de l'écoute clic sur les boutons
+      for (let l = 0; l < itemQuantity.length; l++) {
+          itemQuantity[l].addEventListener("change", (event) => {
+              event.preventDefault();
+              // Sélectionner l'id du produit qui va être supprimé en cliquant sur le bouton
+              let changeId = commande[l]._id;
+              let changeColor = commande[l]._color;
+              console.log('changeId', changeId);
+              console.log('changeColor', changeColor);
+              // Envoyer les nouvelles données dans le localStorage
+              localStorage.setItem('commande', JSON.stringify(commande));
+              //  Avertir de la suppression et recharger la page
+              alert('La quantité a été modifiée.');
+              window.location.href = "cart.html";
+          });
+      }
+    };
+    modifQuantity();
+
 };
