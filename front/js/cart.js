@@ -43,6 +43,29 @@ onload = function() {
   } else {
       document.getElementById("cart__items").innerHTML = `<p>Votre panier est vide</p>`
   };
+
+  //Fonction pour modifier la quantité 
+  function modifQuantity() {
+    // Sélection de tous les boutons deleteItem
+    let itemQuantity = document.querySelectorAll(".itemQuantity");
+    // Mise en place de l'écoute clic sur les boutons
+    for (let l = 0; l < itemQuantity.length; l++) {
+        itemQuantity[l].addEventListener("change", (event) => {
+            event.preventDefault();
+            // Sélectionner l'id du produit qui va être supprimé en cliquant sur le bouton
+            let changeId = commande[l]._id;
+            let changeColor = commande[l]._color;
+            console.log('changeId', changeId);
+            console.log('changeColor', changeColor);
+            // Envoyer les nouvelles données dans le localStorage
+            localStorage.setItem('commande', JSON.stringify(commande));
+            //  Avertir de la suppression et recharger la page
+            alert('La quantité a été modifiée.');
+            window.location.href = "cart.html";
+        });
+    }
+  };
+  modifQuantity();
   // Fonction pour supprimer un article dans le panier
   function deleteProduct() {
       // Sélection de tous les boutons deleteItem
@@ -164,28 +187,5 @@ onload = function() {
           emailErrorMsg.innerText = "Adresse email invalide";
         }
       }
-    })
-    //********************************Modification des quantités*************************/
-    function modifQuantity() {
-      // Sélection de tous les boutons deleteItem
-      let itemQuantity = document.querySelectorAll(".itemQuantity");
-      // Mise en place de l'écoute clic sur les boutons
-      for (let l = 0; l < itemQuantity.length; l++) {
-          itemQuantity[l].addEventListener("change", (event) => {
-              event.preventDefault();
-              // Sélectionner l'id du produit qui va être supprimé en cliquant sur le bouton
-              let changeId = commande[l]._id;
-              let changeColor = commande[l]._color;
-              console.log('changeId', changeId);
-              console.log('changeColor', changeColor);
-              // Envoyer les nouvelles données dans le localStorage
-              localStorage.setItem('commande', JSON.stringify(commande));
-              //  Avertir de la suppression et recharger la page
-              alert('La quantité a été modifiée.');
-              window.location.href = "cart.html";
-          });
-      }
-    };
-    modifQuantity();
-
+  })
 };
