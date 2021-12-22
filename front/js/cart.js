@@ -36,15 +36,13 @@ onload = function() {
    </article> `;
           totalPrice += commande[i]._price * commande[i]._quantity;
           totalQuantity += commande[i]._quantity;
-
       }
       totalQuantite.textContent = totalQuantity;
       totalPanier.textContent = totalPrice;
   } else {
       document.getElementById("cart__items").innerHTML = `<p>Votre panier est vide</p>`
   };
-
-  //Fonction pour modifier la quantité 
+  //Fonction pour modifier les quantités dans le panier
   function modifQuantity() {
     // Sélection de tous les boutons deleteItem
     let itemQuantity = document.querySelectorAll(".itemQuantity");
@@ -52,12 +50,8 @@ onload = function() {
     for (let l = 0; l < itemQuantity.length; l++) {
         itemQuantity[l].addEventListener("change", (event) => {
             event.preventDefault();
-            // Sélectionner l'id du produit qui va être supprimé en cliquant sur le bouton
-            let changeId = commande[l]._id;
-            let changeColor = commande[l]._color;
-            console.log('changeId', changeId);
-            console.log('changeColor', changeColor);
             // Envoyer les nouvelles données dans le localStorage
+            commande[l]._quantity = parseInt(event.target.value);
             localStorage.setItem('commande', JSON.stringify(commande));
             //  Avertir de la suppression et recharger la page
             alert('La quantité a été modifiée.');
@@ -75,7 +69,6 @@ onload = function() {
       for (let l = 0; l < deleteItems.length; l++) {
           deleteItems[l].addEventListener("click", (event) => {
               event.preventDefault();
-
               // Sélectionner l'id du produit qui va être supprimé en cliquant sur le bouton
               let supprId = commande[l]._id;
               let supprColor = commande[l]._color;
@@ -154,6 +147,8 @@ onload = function() {
       controlfirstName();
       controlName();
       controlAnEmail();
+      controlAddress();
+      controlCity();
       // Fonction qui vérifie que le prenom est valide
       function controlfirstName() {
         const RegExpFirstName = (/^[a-z ,.'-]+$/i);
@@ -176,6 +171,28 @@ onload = function() {
           lastNameErrorMsg.innerText = "Nom invalide";
         }
       }
+      //Fonction qui vérifie que l'adresse est valide
+      function controlAddress () {
+        const RegExpAddress = (/^[A-Za-z0-9\s]{3,20}$/);
+        let testAddress = RegExpAddress.test(inputAdress);
+        if (testAddress) {
+          return true;  
+        } else {
+          let addressErrorMsg = document.getElementById ('addressErrorMsg');
+          addressErrorMsg.innerText = "Adresse invalide";
+        }
+      }
+      //Fonction qui vérifie que la ville est valide
+      function controlCity () {
+        const RegExpCity = (/^[A-Za-z0-9\s]{3,20}$/);
+        let testCity = RegExpCity.test(inputCity);
+        if (testCity) {
+          return true;  
+        } else {
+        let cityErrorMsg = document.getElementById ('cityErrorMsg');
+        cityErrorMsg.innerText = "Ville invalide";
+        }
+      }
       // Fonction qui vérifie que l' email est valide
       function controlAnEmail() {
         const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
@@ -187,5 +204,5 @@ onload = function() {
           emailErrorMsg.innerText = "Adresse email invalide";
         }
       }
-  })
+    })
 };
