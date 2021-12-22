@@ -53,7 +53,7 @@ onload = function() {
             // Envoyer les nouvelles données dans le localStorage
             commande[l]._quantity = parseInt(event.target.value);
             localStorage.setItem('commande', JSON.stringify(commande));
-            //  Avertir de la suppression et recharger la page
+            //  Avertir de la modification et recharger la page
             alert('La quantité a été modifiée.');
             window.location.href = "cart.html";
         });
