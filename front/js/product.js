@@ -5,7 +5,6 @@ onload = function() {
     let kanapDescription = document.getElementById("description");
     let kanapPrice = document.getElementById("price");
     let kanapImageUrl = document.querySelector(".item__img");
-
     const inputColor = document.getElementById("colors");
     const quantity = document.getElementById("quantity");
 

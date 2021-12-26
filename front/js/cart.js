@@ -14,26 +14,26 @@ onload = function() {
       for (i = 0; i < commande.length; i++) {
           elementPanier.innerHTML +=
               `<article class="cart__item" "data-id="${commande[i]._id}" data-color="${commande[i]._color}" >
-     <div class="cart__item__img">
-       <img src=${commande[i]._image} alt="Photographie d'un canapé">
-     </div>
-     <div class="cart__item__content">
-       <div class="cart__item__content__titlePrice">
-         <h2>${commande[i]._name}</h2>
-         <p>color : ${commande[i]._color}</p>
-         <p> ${commande[i]._price} €</p>
-       </div>
-       <div class="cart__item__content__settings">
-         <div class="cart__item__content__settings__quantity">
-           <p>Qté :</p>
-           <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${commande[i]._quantity}">
-         </div>
-         <div class="cart__item__content__settings__delete">
-           <button class="deleteItem">Supprimer</button>
-         </div>
-       </div>
-     </div>
-   </article> `;
+<div class="cart__item__img">
+ <img src=${commande[i]._image} alt="Photographie d'un canapé">
+</div>
+<div class="cart__item__content">
+ <div class="cart__item__content__titlePrice">
+   <h2>${commande[i]._name}</h2>
+   <p>color : ${commande[i]._color}</p>
+   <p> ${commande[i]._price} €</p>
+ </div>
+ <div class="cart__item__content__settings">
+   <div class="cart__item__content__settings__quantity">
+     <p>Qté :</p>
+     <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${commande[i]._quantity}">
+   </div>
+   <div class="cart__item__content__settings__delete">
+     <button class="deleteItem">Supprimer</button>
+   </div>
+ </div>
+</div>
+</article> `;
           totalPrice += commande[i]._price * commande[i]._quantity;
           totalQuantity += commande[i]._quantity;
       }
@@ -44,20 +44,20 @@ onload = function() {
   };
   //Fonction pour modifier les quantités dans le panier
   function modifQuantity() {
-    // Sélection de tous les boutons deleteItem
-    let itemQuantity = document.querySelectorAll(".itemQuantity");
-    // Mise en place de l'écoute clic sur les boutons
-    for (let l = 0; l < itemQuantity.length; l++) {
-        itemQuantity[l].addEventListener("change", (event) => {
-            event.preventDefault();
-            // Envoyer les nouvelles données dans le localStorage
-            commande[l]._quantity = parseInt(event.target.value);
-            localStorage.setItem('commande', JSON.stringify(commande));
-            //  Avertir de la modification et recharger la page
-            alert('La quantité a été modifiée.');
-            window.location.href = "cart.html";
-        });
-    }
+      // Sélection de tous les boutons deleteItem
+      let itemQuantity = document.querySelectorAll(".itemQuantity");
+      // Mise en place de l'écoute clic sur les boutons
+      for (let l = 0; l < itemQuantity.length; l++) {
+          itemQuantity[l].addEventListener("change", (event) => {
+              event.preventDefault();
+              // Envoyer les nouvelles données dans le localStorage
+              commande[l]._quantity = parseInt(event.target.value);
+              localStorage.setItem('commande', JSON.stringify(commande));
+              //  Avertir de la modification et recharger la page
+              alert('La quantité a été modifiée.');
+              window.location.href = "cart.html";
+          });
+      }
   };
   modifQuantity();
   // Fonction pour supprimer un article dans le panier
@@ -138,11 +138,11 @@ onload = function() {
       console.log('click');
       // si le panier est vide : afficher 'le panier est vide'
       console.log("commande", commande)
-      if(commande === null || commande.length == 0) {
-        document.querySelector("#cart__items").innerHTML =`
-        <div class="cart__empty">
-          <p>Votre panier est vide ! <br> Merci de sélectionner des produits depuis la page d'accueil</p>
-        </div>`;
+      if (commande === null || commande.length == 0) {
+          document.querySelector("#cart__items").innerHTML = `
+  <div class="cart__empty">
+    <p>Votre panier est vide ! <br> Merci de sélectionner des produits depuis la page d'accueil</p>
+  </div>`;
       }
       controlfirstName();
       controlName();
@@ -151,58 +151,89 @@ onload = function() {
       controlCity();
       // Fonction qui vérifie que le prenom est valide
       function controlfirstName() {
-        const RegExpFirstName = (/^[a-z ,.'-]+$/i);
-        let testFirstName = RegExpFirstName.test(inputFirstName.value);
-        if (testFirstName) {
-          return true;
-        } else {
-          let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
-          firstNameErrorMsg.innerText = "Prénom invalide";
-        }
+          const RegExpFirstName = (/^[a-z ,.'-]+$/i);
+          let testFirstName = RegExpFirstName.test(inputFirstName.value);
+          if (testFirstName) {
+              return true;
+          } else {
+              let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
+              firstNameErrorMsg.innerText = "Prénom invalide";
+          }
       }
       //Fonction qui vérifie que le nom est valide
-      function controlName () {
-        const RegExpName = (/^[a-z ,.'-]+$/i);
-        let testLastName  = RegExpName.test(inputLastName.value);
-        if (testLastName) {
-          return true;
-        } else { 
-          let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
-          lastNameErrorMsg.innerText = "Nom invalide";
-        }
+      function controlName() {
+          const RegExpName = (/^[a-z ,.'-]+$/i);
+          let testLastName = RegExpName.test(inputLastName.value);
+          if (testLastName) {
+              return true;
+          } else {
+              let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
+              lastNameErrorMsg.innerText = "Nom invalide";
+          }
       }
       //Fonction qui vérifie que l'adresse est valide
-      function controlAddress () {
-        const RegExpAddress = (/^[A-Za-z0-9\s]{3,20}$/);
-        let testAddress = RegExpAddress.test(inputAdress);
-        if (testAddress) {
-          return true;  
-        } else {
-          let addressErrorMsg = document.getElementById ('addressErrorMsg');
-          addressErrorMsg.innerText = "Adresse invalide";
-        }
+      function controlAddress() {
+          const RegExpAddress = (/^[A-Za-z0-9\s]{3,20}$/);
+          let testAddress = RegExpAddress.test(inputAdress);
+          if (testAddress) {
+              return true;
+          } else {
+              let addressErrorMsg = document.getElementById('addressErrorMsg');
+              addressErrorMsg.innerText = "Adresse invalide";
+          }
       }
       //Fonction qui vérifie que la ville est valide
-      function controlCity () {
-        const RegExpCity = (/^[A-Za-z0-9\s]{3,20}$/);
-        let testCity = RegExpCity.test(inputCity);
-        if (testCity) {
-          return true;  
-        } else {
-        let cityErrorMsg = document.getElementById ('cityErrorMsg');
-        cityErrorMsg.innerText = "Ville invalide";
-        }
+      function controlCity() {
+          const RegExpCity = (/^[A-Za-z0-9\s]{3,20}$/);
+          let testCity = RegExpCity.test(inputCity);
+          if (testCity) {
+              return true;
+          } else {
+              let cityErrorMsg = document.getElementById('cityErrorMsg');
+              cityErrorMsg.innerText = "Ville invalide";
+          }
       }
       // Fonction qui vérifie que l' email est valide
       function controlAnEmail() {
-        const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
-        let testEmail = RegExpEmail.test(inputEmail.value)
-        if (testEmail) {
-          return true;
-        } else {
-          let emailErrorMsg = document.getElementById('emailErrorMsg');
-          emailErrorMsg.innerText = "Adresse email invalide";
-        }
+          const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
+          let testEmail = RegExpEmail.test(inputEmail.value)
+          if (testEmail) {
+              return true;
+          } else {
+              let emailErrorMsg = document.getElementById('emailErrorMsg');
+              emailErrorMsg.innerText = "Adresse email invalide";
+          }
       }
-    })
-};
+  })
+
+  // Récupérer les données du formulaire dans un objet
+  let contact = {
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      address: document.getElementById('address').value,
+      city: document.getElementById('city').value,
+      email: document.getElementById('email').value
+  };
+
+  // Les valeurs du formulaire et les produits sélectionnés sont mises dans un objet
+  let sendData = {
+      contact,
+      commande
+  };
+  //Envoi du formulaire + localStorage (sendFormData) envoyé au serveur
+
+  const options = {
+      method: 'POST',
+      body: JSON.stringify(sendData),
+      headers: {
+          'Content-Type': 'application/json',
+      }
+  };
+  
+  fetch("http://localhost:3000/api/products/order", options)
+      .then(response => response.json())
+      .then(data => {
+              localStorage.setItem('orderId', data.orderId);
+                   
+      });
+}; 
