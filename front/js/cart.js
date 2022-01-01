@@ -126,10 +126,11 @@ onload = function() {
   const form = document.querySelector(".cart__order__form");
   let inputFirstName = document.getElementById("firstName");
   let inputLastName = document.getElementById("lastName");
-  let inputAdress = document.getElementById("adress");
+  let inputAddress = document.getElementById("address");
   let inputCity = document.getElementById("city");
   let inputEmail = document.getElementById("email");
 
+  
   // Ecouter soumission du formulaire
   // Appeler la function qui récupère la valeur de l'email
   form.addEventListener('submit', function(event) {
@@ -144,16 +145,17 @@ onload = function() {
     <p>Votre panier est vide ! <br> Merci de sélectionner des produits depuis la page d'accueil</p>
   </div>`;
       }
-      controlfirstName();
+      controlFirstName();
       controlName();
       controlAnEmail();
       controlAddress();
       controlCity();
       // Fonction qui vérifie que le prenom est valide
-      function controlfirstName() {
+      function controlFirstName() {
           const RegExpFirstName = (/^[a-z ,.'-]+$/i);
           let testFirstName = RegExpFirstName.test(inputFirstName.value);
           if (testFirstName) {
+              firstNameErrorMsg.innerText = '';
               return true;
           } else {
               let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
@@ -165,6 +167,7 @@ onload = function() {
           const RegExpName = (/^[a-z ,.'-]+$/i);
           let testLastName = RegExpName.test(inputLastName.value);
           if (testLastName) {
+              lastNameErrorMsg.innerText = '';
               return true;
           } else {
               let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
@@ -174,8 +177,10 @@ onload = function() {
       //Fonction qui vérifie que l'adresse est valide
       function controlAddress() {
           const RegExpAddress = (/^[A-Za-z0-9\s]{3,20}$/);
-          let testAddress = RegExpAddress.test(inputAdress);
+          let testAddress = RegExpAddress.test(inputAddress.value);
+          console.log(testAddress);
           if (testAddress) {
+              addressErrorMsg.innerText = '';
               return true;
           } else {
               let addressErrorMsg = document.getElementById('addressErrorMsg');
@@ -185,8 +190,10 @@ onload = function() {
       //Fonction qui vérifie que la ville est valide
       function controlCity() {
           const RegExpCity = (/^[A-Za-z0-9\s]{3,20}$/);
-          let testCity = RegExpCity.test(inputCity);
+          let testCity = RegExpCity.test(inputCity.value);
+          console.log(testCity);
           if (testCity) {
+              cityErrorMsg.innerText = '';
               return true;
           } else {
               let cityErrorMsg = document.getElementById('cityErrorMsg');
@@ -204,36 +211,56 @@ onload = function() {
               emailErrorMsg.innerText = "Adresse email invalide";
           }
       }
-  })
+      
+      // Récupérer les données du formulaire dans un objet
+      let contact = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        address: document.getElementById('address').value,
+        city: document.getElementById('city').value,
+        email: document.getElementById('email').value
+      };
 
-  // Récupérer les données du formulaire dans un objet
-  let contact = {
-      firstName: document.getElementById('firstName').value,
-      lastName: document.getElementById('lastName').value,
-      address: document.getElementById('address').value,
-      city: document.getElementById('city').value,
-      email: document.getElementById('email').value
-  };
+//******************Fin de la vérificaiton de la validation du formulaire ************************//
 
-  // Les valeurs du formulaire et les produits sélectionnés sont mises dans un objet
-  let sendData = {
-      contact,
-      commande
-  };
-  //Envoi du formulaire + localStorage (sendFormData) envoyé au serveur
-
-  const options = {
-      method: 'POST',
-      body: JSON.stringify(sendData),
-      headers: {
-          'Content-Type': 'application/json',
+      // Après vérification des entrées, j'envoie l'objet contact dans le localStorage
+      function controlForm() {
+        if (controlFirstName() && controlName() && controlAddress() && controlCity() && controlAnEmail()) {
+         localStorage.setItem('contact', JSON.stringify(contact));
+         return true;
+        } else {
+            alert('Merci de revérifier les données du formulaire')
+        }
       }
-  };
-  
-  fetch("http://localhost:3000/api/products/order", options)
+      controlForm()
+     
+      // Les valeurs du formulaire et les produits sélectionnés sont mises dans un objet
+      const sendData = {
+        contact,
+        commande
+      };
+
+      //Envoi du formulaire + localStorage (sendData) envoyé au serveur
+      
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(sendData),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      };
+      
+      fetch("http://localhost:3000/api/products/order", options)
       .then(response => response.json())
       .then(data => {
-              localStorage.setItem('orderId', data.orderId);
-                   
+        console.log(data);
+        localStorage.setItem('orderId', data.orderId);
+        if(controlForm()) {
+          document.location.href = "confirmation.html";
+        }
+        
       });
-}; 
+     
+    })
+}; //Fin

@@ -32,7 +32,7 @@ onload = function() {
           console.log("Api non connectée");
           WarnApiNotConnected();
       });
-
+ 
   const addOneKanap = function(infos) {
       container.innerHTML = `<a href="./product.html?id=${infos._id}">
       <article>
