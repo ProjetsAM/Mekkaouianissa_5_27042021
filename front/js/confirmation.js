@@ -1,13 +1,12 @@
 onload = function() {
     console.log("je suis sur la page confirmation");
 
-    let clientId = document.getElementById('orderId');
-
-    const displayOrder = ()=> {
-        if(clientId){
-            clientId.innerText = "Panier validé";
-        }
-    }
     
+    function displayOrder() {
+        let clientId = document.getElementById('orderId');
+        clientId.innerText = localStorage.getItem("orderId");
+        console.log(localStorage.getItem("orderId"))
+        localStorage.clear();   
+    }
     displayOrder();
 };
