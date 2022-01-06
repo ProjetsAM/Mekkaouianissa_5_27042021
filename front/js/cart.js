@@ -1,7 +1,7 @@
 onload = function() {
     console.log("je suis sur la page cart");
     // Le panier récupère la commande passée dans le localstorage
-    // On déclare une variable et on lui affecte par le = ce qu'il y a ds le localstorage de (clé "commande")  
+    // On déclare une variable et on lui affecte ce qu'il y a ds le localstorage de (clé "commande")  
     let commande = JSON.parse(localStorage.getItem('commande'));
     const elementPanier = document.getElementById("cart__items");
     const totalPanier = document.getElementById('totalPrice');
@@ -46,7 +46,7 @@ onload = function() {
     function modifQuantity() {
         // Sélection de tous les boutons deleteItem
         let itemQuantity = document.querySelectorAll(".itemQuantity");
-        // Mise en place de l'écoute clic sur les boutons
+        // Mise en place de l'écoute du clic sur les boutons
         for (let l = 0; l < itemQuantity.length; l++) {
             itemQuantity[l].addEventListener("change", (event) => {
                 event.preventDefault();
@@ -65,7 +65,7 @@ onload = function() {
         // Sélection de tous les boutons deleteItem
         let deleteItems = document.querySelectorAll(".deleteItem");
 
-        // Mise en place de l'écoute clic sur les boutons
+        // Mise en place de l'écoute du clic sur les boutons
         for (let l = 0; l < deleteItems.length; l++) {
             deleteItems[l].addEventListener("click", (event) => {
                 event.preventDefault();
@@ -180,12 +180,12 @@ onload = function() {
         }
         // Récupérer les données du formulaire dans un objet
         let contact = {
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        address: document.getElementById('address').value,
-        city: document.getElementById('city').value,
-        email: document.getElementById('email').value
-         };
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            address: document.getElementById('address').value,
+            city: document.getElementById('city').value,
+            email: document.getElementById('email').value
+        };
 
         //******************Fin de la vérificaiton de la validation du formulaire ************************//
 
@@ -198,21 +198,20 @@ onload = function() {
                 alert('Merci de revérifier les données du formulaire')
             }
         }
-        controlForm()
+        controlForm();
 
-        
+
         //Construction d'un array depuis le local storage
         let commandeIds = [];
-        for (let i = 0; i<commande.length;i++) {
-          commandeIds.push(commande[i]._id);
+        for (let i = 0; i < commande.length; i++) {
+            commandeIds.push(commande[i]._id);
         }
-        console.log(commandeIds);//
-        
+
         // Les valeurs du formulaire et les produits sélectionnés sont mises dans un objet
         const sendData = {
-               contact,
-               products: commandeIds,
-        } 
+            contact,
+            products: commandeIds,
+        }
         //Envoi du formulaire + localStorage (sendData) envoyé au serveur
         const options = {
             method: 'POST',
@@ -226,11 +225,11 @@ onload = function() {
         fetch("http://localhost:3000/api/products/order", options)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                console.log(data); 
                 localStorage.clear();
                 localStorage.setItem('orderId', data.orderId);
                 if (controlForm()) {
-                    document.location.href = 'confirmation.html?id='+ data.orderId;
+                    document.location.href = 'confirmation.html?id=' + data.orderId;
                 }
 
             });
