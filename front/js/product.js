@@ -41,27 +41,22 @@ onload = function() {
             kanapImageUrl.innerHTML = `<img src=${imageUrl} alt=${altTxt}>`;
 
             // Boucle sur les couleurs des  canapés
-
             for (let i = 0; i < colors.length; i++) {
-                console.log(colors[i]);
                 inputColor.innerHTML += `<option value = ${colors[i]}>${colors[i]}</option>`;
 
             };
             addCart();
-
             // Ecouter le clic sur le bouton ajouter au panier (eventListener)
-            function addCart(article) {
+            function addCart() {
                 const btn = document.getElementById("addToCart");
 
                 btn.addEventListener('click', () => {
                     if (inputColor.value === "") {
                         alert("Veuillez saisir la couleur.");
-
                     }
                     //vérifier si la quantité est supérieure à 0 et inférieure ou égale à 100
                     else if (quantity.value < 1 || quantity.value > 100) {
                         alert("Veuillez saisir une quantité entre 1 et 100");
-
                     } else {
                         //Stockage des informations de l'article à ajouter au panier
                         const selectedProduct = {
@@ -72,19 +67,14 @@ onload = function() {
                             _color: inputColor.value,
                             _quantity: parseInt(quantity.value),
                         };
-
                         // Vérifier s'il existe une commande dans le Local Storage
-
                         let commandeExistante = JSON.parse(localStorage.getItem('commande'));
-
                         if (!commandeExistante) {
                             commandeExistante = [];
                             commandeExistante.push(selectedProduct);
                         } else {
                             let productExistantDansCommande = false;
-
                             for (let j = 0; j < commandeExistante.length; j++) {
-
                                 // Comparer l'id et la couleur du selectedProduct avec l'id et la couleur de la ligne de la commandeExistante
                                 if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) {
                                     // Mise à jour d'un selectedProduct existant

@@ -8,31 +8,34 @@ onload = function() {
     const totalQuantite = document.getElementById('totalQuantity');
     let totalPrice = 0;
     let totalQuantity = 0;
+    let formValid = false;
+    const RegExpNameFirstName = (/^[a-z ,.'-]+$/i);
+    const RegExpAddressCity = (/^[A-Za-z0-9,.'-\s]{3,20}$/);
 
     // Affichage des produits qu'il y a dans le panier
     if (commande) {
         for (i = 0; i < commande.length; i++) {
             elementPanier.innerHTML +=
                 `<article class="cart__item" "data-id="${commande[i]._id}" data-color="${commande[i]._color}" >
-<div class="cart__item__img">
-<img src=${commande[i]._image} alt="Photographie d'un canapé">
-</div>
-<div class="cart__item__content">
-<div class="cart__item__content__titlePrice">
- <h2>${commande[i]._name}</h2>
- <p>color : ${commande[i]._color}</p>
- <p> ${commande[i]._price} €</p>
-</div>
-<div class="cart__item__content__settings">
- <div class="cart__item__content__settings__quantity">
-   <p>Qté :</p>
-   <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${commande[i]._quantity}">
- </div>
- <div class="cart__item__content__settings__delete">
-   <button class="deleteItem">Supprimer</button>
- </div>
-</div>
-</div>
+                <div class="cart__item__img">
+                <img src=${commande[i]._image} alt="Photographie d'un canapé">
+                </div>
+                <div class="cart__item__content">
+                <div class="cart__item__content__titlePrice">
+                <h2>${commande[i]._name}</h2>
+                <p>color : ${commande[i]._color}</p>
+                <p> ${commande[i]._price} €</p>
+                </div>
+                <div class="cart__item__content__settings">
+                <div class="cart__item__content__settings__quantity">
+                <p>Qté :</p>
+                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${commande[i]._quantity}">
+                </div>
+                <div class="cart__item__content__settings__delete">
+                <button class="deleteItem">Supprimer</button>
+                </div>
+                </div>
+                </div>
 </article> `;
             totalPrice += commande[i]._price * commande[i]._quantity;
             totalQuantity += commande[i]._quantity;
@@ -74,7 +77,7 @@ onload = function() {
                 let supprColor = commande[l]._color;
                 console.log('supprId', supprId);
                 console.log('supprColor', supprColor);
-                // Filtrer l'élément cliqué par le btn supprimer
+                // Filtrer l'élément cliqué par le btn supprimer pour  garder tout sauf le produit sélectionné
                 commande = commande.filter(element => !(element._id == supprId && element._color == supprColor));
 
                 // Envoyer les nouvelles données dans le localStorage
@@ -113,29 +116,29 @@ onload = function() {
 </div>`;
         }
         controlFirstName();
-        controlName();
+        controlLastName();
         controlAnEmail();
-        controlAddress();
+        controlAddress(); 
         controlCity();
         // Fonction qui vérifie que le prenom est valide
         function controlFirstName() {
-            const RegExpFirstName = (/^[a-z ,.'-]+$/i);
-            let testFirstName = RegExpFirstName.test(inputFirstName.value);
+            RegExpNameFirstName;
+            let testFirstName = RegExpNameFirstName.test(inputFirstName.value);
             if (testFirstName) {
                 firstNameErrorMsg.innerText = '';
-                return true;
+                formValid;    
             } else {
                 let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
                 firstNameErrorMsg.innerText = "Prénom invalide";
             }
         }
         //Fonction qui vérifie que le nom est valide
-        function controlName() {
-            const RegExpName = (/^[a-z ,.'-]+$/i);
-            let testLastName = RegExpName.test(inputLastName.value);
+        function controlLastName() {
+            RegExpNameFirstName;
+            let testLastName = RegExpNameFirstName.test(inputLastName.value);
             if (testLastName) {
                 lastNameErrorMsg.innerText = '';
-                return true;
+                formValid;
             } else {
                 let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
                 lastNameErrorMsg.innerText = "Nom invalide";
@@ -143,12 +146,11 @@ onload = function() {
         }
         //Fonction qui vérifie que l'adresse est valide
         function controlAddress() {
-            const RegExpAddress = (/^[A-Za-z0-9,.'-\s]{3,20}$/);
-            let testAddress = RegExpAddress.test(inputAddress.value);
-            console.log(testAddress);
+            RegExpAddressCity;
+            let testAddress = RegExpAddressCity.test(inputAddress.value);
             if (testAddress) {
                 addressErrorMsg.innerText = '';
-                return true;
+                formValid;
             } else {
                 let addressErrorMsg = document.getElementById('addressErrorMsg');
                 addressErrorMsg.innerText = "Adresse invalide";
@@ -156,12 +158,11 @@ onload = function() {
         }
         //Fonction qui vérifie que la ville est valide
         function controlCity() {
-            const RegExpCity = (/^[A-Za-z0-9,.'-\s]{3,20}$/);
-            let testCity = RegExpCity.test(inputCity.value);
-            console.log(testCity);
+            RegExpAddressCity;
+            let testCity = RegExpAddressCity.test(inputCity.value);
             if (testCity) {
                 cityErrorMsg.innerText = '';
-                return true;
+                formValid;
             } else {
                 let cityErrorMsg = document.getElementById('cityErrorMsg');
                 cityErrorMsg.innerText = "Ville invalide";
@@ -172,7 +173,7 @@ onload = function() {
             const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
             let testEmail = RegExpEmail.test(inputEmail.value)
             if (testEmail) {
-                return true;
+                formValid;
             } else {
                 let emailErrorMsg = document.getElementById('emailErrorMsg');
                 emailErrorMsg.innerText = "Adresse email invalide";
@@ -187,11 +188,11 @@ onload = function() {
             email: document.getElementById('email').value
         };
 
-        //******************Fin de la vérificaiton de la validation du formulaire ************************//
+        //******************Fin de la vérification de la validation du formulaire ************************//
 
         // Après vérification des entrées, j'envoie l'objet contact dans le localStorage
         function controlForm() {
-            if (controlFirstName() && controlName() && controlAddress() && controlCity() && controlAnEmail()) {
+            if (controlFirstName() &&  controlLastName() && controlAddress() && controlCity() && controlAnEmail()) {
                 localStorage.setItem('contact', JSON.stringify(contact));
                 return true;
             } else {
@@ -226,9 +227,7 @@ onload = function() {
             .then(response => response.json())
             .then(data => {
                 console.log(data); 
-                localStorage.clear();
-                localStorage.setItem('orderId', data.orderId);
-                if (controlForm()) {
+                if ("formValid") {
                     document.location.href = 'confirmation.html?id=' + data.orderId;
                 }
 
