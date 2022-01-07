@@ -1,6 +1,6 @@
 onload = function() {
     let orderId = "data.orderId"; 
-    const id = url.searchParams.get("id");
+    const id = new URL(document.location.href).searchParams.get("id");
     // Fonction qui affiche le numéro de commande , en récupérant l'id de commande dans l'url ici (orderId)
     function displayOrder() {
         let clientId = document.getElementById('orderId');

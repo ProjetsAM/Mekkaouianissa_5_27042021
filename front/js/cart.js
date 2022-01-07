@@ -8,7 +8,6 @@ onload = function() {
     const totalQuantite = document.getElementById('totalQuantity');
     let totalPrice = 0;
     let totalQuantity = 0;
-    let formValid = false;
     const RegExpNameFirstName = (/^[a-z ,.'-]+$/i);
     const RegExpAddressCity = (/^[A-Za-z0-9,.'-\s]{3,20}$/);
 
@@ -115,17 +114,18 @@ onload = function() {
             <p>Votre panier est vide ! <br> Merci de sélectionner des produits depuis la page d'accueil</p>
             </div>`;
         }
-        
+       
         // Fonction qui vérifie que le prenom est valide
         function controlFirstName() {
             RegExpNameFirstName;
             let testFirstName = RegExpNameFirstName.test(inputFirstName.value);
             if (testFirstName) {
                 firstNameErrorMsg.innerText = '';
-                formValid;    
+                return true;
             } else {
                 let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
                 firstNameErrorMsg.innerText = "Prénom invalide";
+                return false;
             }
         }
         //Fonction qui vérifie que le nom est valide
@@ -134,10 +134,11 @@ onload = function() {
             let testLastName = RegExpNameFirstName.test(inputLastName.value);
             if (testLastName) {
                 lastNameErrorMsg.innerText = '';
-        
+                return true;
             } else {
                 let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
                 lastNameErrorMsg.innerText = "Nom invalide";
+                return false;
             }
         }
         //Fonction qui vérifie que l'adresse est valide
@@ -146,10 +147,11 @@ onload = function() {
             let testAddress = RegExpAddressCity.test(inputAddress.value);
             if (testAddress) {
                 addressErrorMsg.innerText = '';
-                
+                return true;
             } else {
                 let addressErrorMsg = document.getElementById('addressErrorMsg');
                 addressErrorMsg.innerText = "Adresse invalide";
+                return false;
             }
         }
         //Fonction qui vérifie que la ville est valide
@@ -157,10 +159,12 @@ onload = function() {
             RegExpAddressCity;
             let testCity = RegExpAddressCity.test(inputCity.value);
             if (testCity) {
-                cityErrorMsg.innerText = '';  
+                cityErrorMsg.innerText = '';
+                return true;
             } else {
                 let cityErrorMsg = document.getElementById('cityErrorMsg');
                 cityErrorMsg.innerText = "Ville invalide";
+                return false;
             }
         }
         // Fonction qui vérifie que l' email est valide
@@ -169,16 +173,14 @@ onload = function() {
             let testEmail = RegExpEmail.test(inputEmail.value)
             if (testEmail) {  
                 emailErrorMsg.innerText = '';
+                return true;
             } else {
                 let emailErrorMsg = document.getElementById('emailErrorMsg');
                 emailErrorMsg.innerText = "Adresse email invalide";
+                return false;
             }
         }
-        controlFirstName();
-        controlLastName();
-        controlAnEmail();
-        controlAddress(); 
-        controlCity();
+
         // Récupérer les données du formulaire dans un objet
         let contact = {
             firstName: document.getElementById('firstName').value,
@@ -190,49 +192,37 @@ onload = function() {
 
         //******************Fin de la vérification de la validation du formulaire ************************//
 
-        // Après vérification des entrées, j'envoie l'objet contact dans le localStorage
-        function controlForm() {
-            if (controlFirstName() &&  controlLastName() && controlAddress() && controlCity() && controlAnEmail()) {
-                localStorage.setItem('contact', JSON.stringify(contact));
-                formValid = true;
-                return true;
-            } else {
-                alert('Merci de revérifier les données du formulaire')
+        if (controlFirstName() && controlLastName() && controlAddress()  && controlCity() && controlAnEmail()) {
+            //Construction d'un array avec les id des produits
+            let commandeIds = [];
+            for (let i = 0; i < commande.length; i++) {
+                commandeIds.push(commande[i]._id);
             }
+
+            // Les valeurs du formulaire et les produits sélectionnés sont mises dans un objet
+            const sendData = {
+                contact,
+                products: commandeIds,
+            }
+            //Envoi du sendData au serveur
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(sendData),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            fetch("http://localhost:3000/api/products/order", options)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                        document.location.href = 'confirmation.html?id=' + data.orderId;
+                });
+            } else {
+                alert('Merci de revérifier les données du formulaire et votre connexion internet');
+            }      
         }
-        controlForm();
-
-
-        //Construction d'un array depuis le local storage
-        let commandeIds = [];
-        for (let i = 0; i < commande.length; i++) {
-            commandeIds.push(commande[i]._id);
-        }
-
-        // Les valeurs du formulaire et les produits sélectionnés sont mises dans un objet
-        const sendData = {
-            contact,
-            products: commandeIds,
-        }
-        //Envoi du formulaire + localStorage (sendData) envoyé au serveur
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(sendData),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-        };
-
-        fetch("http://localhost:3000/api/products/order", options)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); 
-                if (formValid == true) {
-                    document.location.href = 'confirmation.html?id=' + data.orderId;
-                }
-
-            });
-
-    })
+    )
 }; //Fin
