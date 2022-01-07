@@ -111,15 +111,11 @@ onload = function() {
         console.log("commande", commande)
         if (commande === null || commande.length == 0) {
             document.querySelector("#cart__items").innerHTML = `
-<div class="cart__empty">
-  <p>Votre panier est vide ! <br> Merci de sélectionner des produits depuis la page d'accueil</p>
-</div>`;
+            <div class="cart__empty">
+            <p>Votre panier est vide ! <br> Merci de sélectionner des produits depuis la page d'accueil</p>
+            </div>`;
         }
-        controlFirstName();
-        controlLastName();
-        controlAnEmail();
-        controlAddress(); 
-        controlCity();
+        
         // Fonction qui vérifie que le prenom est valide
         function controlFirstName() {
             RegExpNameFirstName;
@@ -138,7 +134,7 @@ onload = function() {
             let testLastName = RegExpNameFirstName.test(inputLastName.value);
             if (testLastName) {
                 lastNameErrorMsg.innerText = '';
-                formValid;
+        
             } else {
                 let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
                 lastNameErrorMsg.innerText = "Nom invalide";
@@ -150,7 +146,7 @@ onload = function() {
             let testAddress = RegExpAddressCity.test(inputAddress.value);
             if (testAddress) {
                 addressErrorMsg.innerText = '';
-                formValid;
+                
             } else {
                 let addressErrorMsg = document.getElementById('addressErrorMsg');
                 addressErrorMsg.innerText = "Adresse invalide";
@@ -161,8 +157,7 @@ onload = function() {
             RegExpAddressCity;
             let testCity = RegExpAddressCity.test(inputCity.value);
             if (testCity) {
-                cityErrorMsg.innerText = '';
-                formValid;
+                cityErrorMsg.innerText = '';  
             } else {
                 let cityErrorMsg = document.getElementById('cityErrorMsg');
                 cityErrorMsg.innerText = "Ville invalide";
@@ -172,13 +167,18 @@ onload = function() {
         function controlAnEmail() {
             const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
             let testEmail = RegExpEmail.test(inputEmail.value)
-            if (testEmail) {
-                formValid;
+            if (testEmail) {  
+                emailErrorMsg.innerText = '';
             } else {
                 let emailErrorMsg = document.getElementById('emailErrorMsg');
                 emailErrorMsg.innerText = "Adresse email invalide";
             }
         }
+        controlFirstName();
+        controlLastName();
+        controlAnEmail();
+        controlAddress(); 
+        controlCity();
         // Récupérer les données du formulaire dans un objet
         let contact = {
             firstName: document.getElementById('firstName').value,
@@ -194,6 +194,7 @@ onload = function() {
         function controlForm() {
             if (controlFirstName() &&  controlLastName() && controlAddress() && controlCity() && controlAnEmail()) {
                 localStorage.setItem('contact', JSON.stringify(contact));
+                formValid = true;
                 return true;
             } else {
                 alert('Merci de revérifier les données du formulaire')
@@ -227,7 +228,7 @@ onload = function() {
             .then(response => response.json())
             .then(data => {
                 console.log(data); 
-                if ("formValid") {
+                if (formValid == true) {
                     document.location.href = 'confirmation.html?id=' + data.orderId;
                 }
 
