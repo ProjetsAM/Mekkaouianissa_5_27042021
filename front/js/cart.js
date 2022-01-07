@@ -36,7 +36,7 @@ onload = function() {
                 </div>
                 </div>
                 </div>
-</article> `;
+                </article> `;
             totalPrice += commande[i]._price * commande[i]._quantity;
             totalQuantity += commande[i]._quantity;
         }
