@@ -16,6 +16,7 @@ onload = function() {
         id = url.searchParams.get("id");
     };
     getIdFromUrl();
+    
     // On veut vérifier si l'id n'est pas dans l'url
     if (id == null) {
         alert("Vous devez sélectionner un canapé auparavant");

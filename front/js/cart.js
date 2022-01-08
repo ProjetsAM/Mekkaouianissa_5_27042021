@@ -114,7 +114,6 @@ onload = function() {
             <p>Votre panier est vide ! <br> Merci de sélectionner des produits depuis la page d'accueil</p>
             </div>`;
         }
-       
         // Fonction qui vérifie que le prenom est valide
         function controlFirstName() {
             RegExpNameFirstName;
@@ -180,7 +179,6 @@ onload = function() {
                 return false;
             }
         }
-
         // Récupérer les données du formulaire dans un objet
         let contact = {
             firstName: document.getElementById('firstName').value,
@@ -189,7 +187,6 @@ onload = function() {
             city: document.getElementById('city').value,
             email: document.getElementById('email').value
         };
-
         //******************Fin de la vérification de la validation du formulaire ************************//
 
         if (controlFirstName() && controlLastName() && controlAddress()  && controlCity() && controlAnEmail()) {
@@ -213,7 +210,6 @@ onload = function() {
                     'Content-Type': 'application/json',
                 },
             };
-
             fetch("http://localhost:3000/api/products/order", options)
                 .then(response => response.json())
                 .then(data => {
