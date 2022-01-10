@@ -1,5 +1,4 @@
 onload = function() {
-    console.log("je suis sur la page cart");
     // Le panier récupère la commande passée dans le localstorage
     // On déclare une variable et on lui affecte ce qu'il y a ds le localstorage de (clé "commande")  
     let commande = JSON.parse(localStorage.getItem('commande'));
@@ -36,6 +35,7 @@ onload = function() {
                 </div>
                 </div>
                 </article> `;
+    //             
             totalPrice += commande[i]._price * commande[i]._quantity;
             totalQuantity += commande[i]._quantity;
         }
@@ -48,13 +48,16 @@ onload = function() {
     function modifQuantity() {
         // Sélection de tous les boutons deleteItem
         let itemQuantity = document.querySelectorAll(".itemQuantity");
+
         // Mise en place de l'écoute du clic sur les boutons
         for (let l = 0; l < itemQuantity.length; l++) {
             itemQuantity[l].addEventListener("change", (event) => {
                 event.preventDefault();
+                
                 // Envoyer les nouvelles données dans le localStorage
                 commande[l]._quantity = parseInt(event.target.value);
                 localStorage.setItem('commande', JSON.stringify(commande));
+                
                 //  Avertir de la modification et recharger la page
                 alert('La quantité a été modifiée.');
                 window.location.href = "cart.html";
@@ -71,14 +74,14 @@ onload = function() {
         for (let l = 0; l < deleteItems.length; l++) {
             deleteItems[l].addEventListener("click", (event) => {
                 event.preventDefault();
-                // Sélectionner l'id du produit qui va être supprimé en cliquant sur le bouton
+
+                // Sélectionner l'id du produit qui va être supprimé en cliquant sur le bouton supprimer
                 let supprId = commande[l]._id;
                 let supprColor = commande[l]._color;
-                console.log('supprId', supprId);
-                console.log('supprColor', supprColor);
+
                 // Filtrer l'élément cliqué par le btn supprimer pour  garder tout sauf le produit sélectionné
                 commande = commande.filter(element => !(element._id == supprId && element._color == supprColor));
-
+                
                 // Envoyer les nouvelles données dans le localStorage
                 localStorage.setItem('commande', JSON.stringify(commande));
 
@@ -101,12 +104,12 @@ onload = function() {
 
 
     // Ecouter soumission du formulaire
-    // Appeler la function qui récupère la valeur de l'email
+    // Appeler la function qui récupère la valeur de l'email***************************
     form.addEventListener('submit', function(event) {
-        // Stoppe le comportement par défaut qui , ici, rafraichit la page
+        // Stoppe le comportement par défaut qui, ici, rafraichit la page
         event.preventDefault();
-        console.log('click');
-        // si le panier est vide : afficher 'le panier est vide'
+        // On vérifie dans le if si le nombre de commande est égal à zéro
+        // Si le panier est vide : afficher 'le panier est vide'
         console.log("commande", commande)
         if (commande === null || commande.length == 0) {
             document.querySelector("#cart__items").innerHTML = `
@@ -114,7 +117,7 @@ onload = function() {
             <p>Votre panier est vide ! <br> Merci de sélectionner des produits depuis la page d'accueil</p>
             </div>`;
         }
-        // Fonction qui vérifie que le prenom est valide
+        // Fonction qui vérifie que le prénom est valide
         function controlFirstName() {
             RegExpNameFirstName;
             let testFirstName = RegExpNameFirstName.test(inputFirstName.value);
@@ -192,6 +195,7 @@ onload = function() {
         if (controlFirstName() && controlLastName() && controlAddress()  && controlCity() && controlAnEmail()) {
             //Construction d'un array avec les id des produits
             let commandeIds = [];
+            //
             for (let i = 0; i < commande.length; i++) {
                 commandeIds.push(commande[i]._id);
             }
@@ -204,6 +208,7 @@ onload = function() {
             //Envoi du sendData au serveur
             const options = {
                 method: 'POST',
+            // Je convertis l'objet JS en JSON pour l'envoyer au serveur
                 body: JSON.stringify(sendData),
                 headers: {
                     'Accept': 'application/json',

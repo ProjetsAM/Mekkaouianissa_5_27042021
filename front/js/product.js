@@ -22,7 +22,7 @@ onload = function() {
         alert("Vous devez sélectionner un canapé auparavant");
     }
 
-    // Affiche le produit sur la page
+    // Affiche le produit sur la page 
     const urlProduct = `http://localhost:3000/api/products/${id}`;
 
     fetch(urlProduct)
