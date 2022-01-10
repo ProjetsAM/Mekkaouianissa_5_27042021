@@ -68,9 +68,10 @@ onload = function() {
                             _color: inputColor.value,
                             _quantity: parseInt(quantity.value),
                         };
-                        // Vérifier s'il existe une commande dans le Local Storage
+                        // Vérifier s'il existe une commande en cours dans le Local Storage
                         let commandeExistante = JSON.parse(localStorage.getItem('commande'));
                         if (!commandeExistante) {
+                            // Cas où on crée une nouvelle commande    
                             commandeExistante = [];
                             commandeExistante.push(selectedProduct);
                         } else {
@@ -80,6 +81,7 @@ onload = function() {
                                 if (selectedProduct._id == commandeExistante[j]._id && selectedProduct._color == commandeExistante[j]._color) {
                                     // Mise à jour d'un selectedProduct existant
                                     commandeExistante[j]._quantity = parseInt(commandeExistante[j]._quantity) + parseInt(selectedProduct._quantity);
+                                    // Pour empêcher le push dans commandeExistante, car la mise à jour  de la quantité suffit
                                     productExistantDansCommande = true;
                                 }
                             }

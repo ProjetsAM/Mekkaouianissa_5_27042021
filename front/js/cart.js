@@ -7,8 +7,9 @@ onload = function() {
     const totalQuantite = document.getElementById('totalQuantity');
     let totalPrice = 0;
     let totalQuantity = 0;
-    const RegExpNameFirstName = (/^[a-z ,.'-]+$/i);
+    const RegExpName = (/^[a-z ,.'-]+$/i);
     const RegExpAddressCity = (/^[A-Za-z0-9,.'-\s]{3,20}$/);
+    const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
 
     // Affichage des produits qu'il y a dans le panier
     if (commande) {
@@ -35,7 +36,7 @@ onload = function() {
                 </div>
                 </div>
                 </article> `;
-    //             
+    // Mise à jour à chaque tour de boucle            
             totalPrice += commande[i]._price * commande[i]._quantity;
             totalQuantity += commande[i]._quantity;
         }
@@ -119,8 +120,7 @@ onload = function() {
         }
         // Fonction qui vérifie que le prénom est valide
         function controlFirstName() {
-            RegExpNameFirstName;
-            let testFirstName = RegExpNameFirstName.test(inputFirstName.value);
+            let testFirstName = RegExpName.test(inputFirstName.value);
             if (testFirstName) {
                 firstNameErrorMsg.innerText = '';
                 return true;
@@ -132,8 +132,7 @@ onload = function() {
         }
         //Fonction qui vérifie que le nom est valide
         function controlLastName() {
-            RegExpNameFirstName;
-            let testLastName = RegExpNameFirstName.test(inputLastName.value);
+            let testLastName = RegExpName.test(inputLastName.value);
             if (testLastName) {
                 lastNameErrorMsg.innerText = '';
                 return true;
@@ -145,7 +144,6 @@ onload = function() {
         }
         //Fonction qui vérifie que l'adresse est valide
         function controlAddress() {
-            RegExpAddressCity;
             let testAddress = RegExpAddressCity.test(inputAddress.value);
             if (testAddress) {
                 addressErrorMsg.innerText = '';
@@ -158,7 +156,6 @@ onload = function() {
         }
         //Fonction qui vérifie que la ville est valide
         function controlCity() {
-            RegExpAddressCity;
             let testCity = RegExpAddressCity.test(inputCity.value);
             if (testCity) {
                 cityErrorMsg.innerText = '';
@@ -171,7 +168,6 @@ onload = function() {
         }
         // Fonction qui vérifie que l' email est valide
         function controlAnEmail() {
-            const RegExpEmail = (/^[a-z0-9\-_\.]+@[a-z0-9]+\.[a-z]{2,5}$/);
             let testEmail = RegExpEmail.test(inputEmail.value)
             if (testEmail) {  
                 emailErrorMsg.innerText = '';
@@ -195,7 +191,7 @@ onload = function() {
         if (controlFirstName() && controlLastName() && controlAddress()  && controlCity() && controlAnEmail()) {
             //Construction d'un array avec les id des produits
             let commandeIds = [];
-            //
+            //Récupération des Id pour faire fonctionner l'Api fetch en méthode POST
             for (let i = 0; i < commande.length; i++) {
                 commandeIds.push(commande[i]._id);
             }
@@ -208,7 +204,7 @@ onload = function() {
             //Envoi du sendData au serveur
             const options = {
                 method: 'POST',
-            // Je convertis l'objet JS en JSON pour l'envoyer au serveur
+                // Je convertis l'objet JS en JSON pour l'envoyer au serveur
                 body: JSON.stringify(sendData),
                 headers: {
                     'Accept': 'application/json',
@@ -216,6 +212,7 @@ onload = function() {
                 },
             };
             fetch("http://localhost:3000/api/products/order", options)
+                // Pour que l'API retourne l'order ID
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);

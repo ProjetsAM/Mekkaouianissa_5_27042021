@@ -1,6 +1,5 @@
 onload = function() {
     const API = "http://localhost:3000/api/products";
-    const itemsTarget = document.getElementById("items");
     const container = document.getElementById("items");
 
     // Fetch récupère les données depuis l'url de l'API
@@ -29,8 +28,8 @@ onload = function() {
 
 
     const warnApiNotConnected = function() {
-        if (itemsTarget) {
-            itemsTarget.innerHTML = `<p>Une erreur s'est produite, veuillez nous excuser.</p>`;
+        if (container) {
+            container.innerHTML = `<p>Une erreur s'est produite, veuillez nous excuser.</p>`;
         }
     }
 };
