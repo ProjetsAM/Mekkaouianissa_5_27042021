@@ -13,7 +13,9 @@ onload = function() {
 
     // Affichage des produits qu'il y a dans le panier
     if (commande) {
+        // On boucle sur tous les produits qu'il y a dans le panier
         for (i = 0; i < commande.length; i++) {
+            //On insère les informations de la sélection dans le DOM
             elementPanier.innerHTML +=
                 `<article class="cart__item" "data-id="${commande[i]._id}" data-color="${commande[i]._color}" >
                 <div class="cart__item__img">
@@ -36,7 +38,7 @@ onload = function() {
                 </div>
                 </div>
                 </article> `;
-    // Mise à jour à chaque tour de boucle            
+            // Mise à jour à chaque tour de boucle            
             totalPrice += commande[i]._price * commande[i]._quantity;
             totalQuantity += commande[i]._quantity;
         }

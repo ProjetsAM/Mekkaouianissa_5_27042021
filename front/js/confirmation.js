@@ -7,6 +7,7 @@ onload = function() {
         if (id == null) {
             alert("Nous rencontrons un problème avec votre commande");
         }
+        // On vide le localstorage une fois la commande validée
         localStorage.clear();   
     };
     displayOrder();   

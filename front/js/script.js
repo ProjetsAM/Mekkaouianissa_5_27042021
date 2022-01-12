@@ -10,6 +10,7 @@ onload = function() {
             //Boucle qui affiche les canapés qu'il y a dans l'API jusqu'à épuisement
             const addKanaps = () => {  
                 for (let i = 0; i < data.length; i++) {
+                    //Affiche les produits sur la page avec les éléments de chaque canapé 
                     container.innerHTML += `<a href="./product.html?id=${data[i]._id}">
                     <article>
                     <img src="${data[i].imageUrl}" alt="${data[i].altTxt}">
@@ -29,6 +30,7 @@ onload = function() {
 
     const warnApiNotConnected = function() {
         if (container) {
+            // Pour afficher le message au bon endroit dans le DOM
             container.innerHTML = `<p>Une erreur s'est produite, veuillez nous excuser.</p>`;
         }
     }
