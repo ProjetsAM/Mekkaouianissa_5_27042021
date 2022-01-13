@@ -96,7 +96,7 @@ onload = function() {
     };
     deleteProduct();
 
-    //****************************Vérification du formulaire de contact*****************************************
+    //Vérification du formulaire de contact
     // Récupérer l'element dans le HTML (DOM)
     const form = document.querySelector(".cart__order__form");
     let inputFirstName = document.getElementById("firstName");
@@ -107,7 +107,7 @@ onload = function() {
 
 
     // Ecouter soumission du formulaire
-    // Appeler la function qui récupère la valeur de l'email***************************
+    // Appeler la function qui récupère la valeur de l'email
     form.addEventListener('submit', function(event) {
         // Stoppe le comportement par défaut qui, ici, rafraichit la page
         event.preventDefault();
@@ -188,9 +188,9 @@ onload = function() {
             city: document.getElementById('city').value,
             email: document.getElementById('email').value
         };
-        //******************Fin de la vérification de la validation du formulaire ************************//
 
-        if (controlFirstName() && controlLastName() && controlAddress()  && controlCity() && controlAnEmail()) {
+        // Vérification du formulaire
+        if (controlFirstName() && controlLastName() && controlAddress() && controlCity() && controlAnEmail()) {
             //Construction d'un array avec les id des produits
             let commandeIds = [];
             //Récupération des Id pour faire fonctionner l'Api fetch en méthode POST

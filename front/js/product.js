@@ -1,5 +1,5 @@
 onload = function() {
-    //On déclare les variables exploitable dans le fichier
+    //On déclare les variables exploitables dans le fichier
     let id;
     let kanapName = document.getElementById("title");
     let kanapDescription = document.getElementById("description");
@@ -94,7 +94,7 @@ onload = function() {
                                     productExistantDansCommande = true;
                                 }
                             }
-                            if (!productExistantDansCommande) {
+                            if (productExistantDansCommande == false) {
                                 //On ajoute un selectedProduct nouveau à la commande, donc on pushe une nouvelle ligne
                                 commandeExistante.push(selectedProduct);
                             }

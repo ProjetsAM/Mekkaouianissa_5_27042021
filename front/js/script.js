@@ -27,8 +27,7 @@ onload = function() {
         .catch((error) => {
             warnApiNotConnected();
         });
-
-
+        
     const warnApiNotConnected = function() {
         if (container) {
             // Pour afficher le message au bon endroit dans le DOM
