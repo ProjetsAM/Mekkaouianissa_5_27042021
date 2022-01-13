@@ -1,4 +1,5 @@
 onload = function() {
+    // On déclare les variables exploitable dans le fichier
     const API = "http://localhost:3000/api/products";
     const container = document.getElementById("items");
 
@@ -10,7 +11,7 @@ onload = function() {
             //Boucle qui affiche les canapés qu'il y a dans l'API jusqu'à épuisement
             const addKanaps = () => {  
                 for (let i = 0; i < data.length; i++) {
-                    //Affiche les produits sur la page avec les éléments de chaque canapé 
+                    //Insère les canapés dans index html avec les données de l api 
                     container.innerHTML += `<a href="./product.html?id=${data[i]._id}">
                     <article>
                     <img src="${data[i].imageUrl}" alt="${data[i].altTxt}">

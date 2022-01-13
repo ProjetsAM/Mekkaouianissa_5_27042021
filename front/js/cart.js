@@ -216,6 +216,7 @@ onload = function() {
             fetch("http://localhost:3000/api/products/order", options)
                 // Pour que l'API retourne l'order ID
                 .then(response => response.json())
+                //On récupère le résultat de la promesse
                 .then(data => {
                     console.log(data);
                         document.location.href = 'confirmation.html?id=' + data.orderId;
